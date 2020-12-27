@@ -2,9 +2,24 @@ package CS101Projekat;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class GameUtils {
-    public static ArrayList<Pitanje> generisiPitanjaIOdgovore() {
+    /**
+     * @see "https://stackoverflow.com/a/5762502/7453363"
+     */
+    private static final String RED = "\033[0;31m";     // RED
+    private static final String GREEN = "\033[0;32m";   // GREEN
+    private static final String GREEN_BOLD = "\033[1;32m";
+    private static final String RED_BOLD = "\033[1;31m";
+    private static final String RESET = "\033[0m";  // Text Reset
+
+    /**
+     * Generiše listu pitanja i odgovora i nakon toga vraća ArrayList sa tim vrednostima
+     *
+     * @return lista pitanja sa odgovorima
+     */
+    private static ArrayList<Pitanje> generisiPitanjaIOdgovore() {
         ArrayList<Pitanje> listaPitanja = new ArrayList<>();
 
         Pitanje pitanje1 = new Pitanje();
@@ -122,13 +137,18 @@ public class GameUtils {
         return listaPitanja;
     }
 
+    /**
+     * Kreira fajl sa pitanjima i odgovorima
+     *
+     * @return lista pitanja sa odgovorima
+     */
     public static ArrayList<Pitanje> kreirajFajlSaPitanjima() throws IOException {
         ArrayList<Pitanje> listaPitanja = generisiPitanjaIOdgovore();
         ObjectOutputStream output = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream("pitanja.dat")));
         try {
             for (Pitanje pitanje : listaPitanja) {
-                System.out.println(pitanje.toString());
                 output.writeObject(pitanje);
+                // System.out.println(pitanje.toString());
             }
         } catch (IOException ex) {
             ex.getStackTrace();
@@ -137,20 +157,24 @@ public class GameUtils {
         return listaPitanja;
     }
 
+    /**
+     * Učitava pitanja sa odgovorima iz već postojećeg fajla
+     *
+     * @return lista pitanja sa odgovorima
+     * @throws IOException
+     */
     public static ArrayList<Pitanje> ucitajFajlSaPitanjima() throws IOException {
         ArrayList<Pitanje> listaPitanja = new ArrayList<>();
         ObjectInputStream input = new ObjectInputStream(new BufferedInputStream(new FileInputStream("pitanja.dat")));
-        try{
+        try {
             while (true) {
                 Pitanje pitanje = (Pitanje) input.readObject();
                 listaPitanja.add(pitanje);
-                System.out.println(pitanje.toString());
+                // System.out.println(pitanje.toString());
             }
-        }
-        catch (EOFException ex) {
+        } catch (EOFException ex) {
             System.out.println("Sva pitanja su učitana");
-        }
-        catch(IOException ex){
+        } catch (IOException ex) {
             ex.getStackTrace();
         } catch (ClassNotFoundException e) {
             System.out.println("Greška pri učitavanju klasa iz objekta.");
@@ -158,5 +182,36 @@ public class GameUtils {
         }
         input.close();
         return listaPitanja;
+    }
+
+    public static void dozvoliUnosSamoBrojeva(Scanner ulaz, String poruka) {
+        while (!ulaz.hasNextInt()) {
+            System.out.println("Loš unos. Pokušajte ponovo.");
+            ulaz.next();
+            System.out.print(poruka);
+        }
+    }
+
+    public static boolean validirajKomandu(String komanda) {
+        switch (komanda) {
+            case "start":
+            case "help":
+            case "res":
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    public static void logGreen(String poruka) {
+        System.out.print(GREEN + poruka + RESET);
+    }
+
+    public static void logRed(String poruka) {
+        System.out.print(RED + poruka + RESET);
+    }
+
+    public static void logGreenB(String poruka) {
+        System.out.print(GREEN_BOLD + poruka + RESET);
     }
 }
