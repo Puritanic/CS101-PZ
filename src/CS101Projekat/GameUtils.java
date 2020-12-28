@@ -184,6 +184,45 @@ public class GameUtils {
         return listaPitanja;
     }
 
+    /**
+     * @return sačuvani podaci o igračima koji su pokretali igru
+     * @throws IOException
+     */
+    public static ArrayList<Player> ucitajFajlSaIgracima() throws IOException {
+        ArrayList<Player> igraci = new ArrayList<>();
+        ObjectInputStream input = null;
+
+        try {
+            input = new ObjectInputStream(new BufferedInputStream(new FileInputStream("players.dat")));
+            while (true) {
+                Player igrac = (Player) input.readObject();
+                igraci.add(igrac);
+                // System.out.println(igrac.toString());
+            }
+        } catch (EOFException ex) {
+            System.out.println("Podaci o igračima su učitani");
+        } catch (IOException ex) {
+            System.out.println("IO greška");
+        } catch (ClassNotFoundException e) {
+            System.out.println("Greška pri učitavanju klasa iz objekta.");
+        }
+        if (input != null) {
+            input.close();
+        }
+        return igraci;
+    }
+
+    /**
+     * ubacuje podatke o trenutnom igraču u players.dat fajl
+     * U slučaju da fajl ne postoji, kreiramo fajl i onda ubacujemo info
+     * u suprotnom samo dodajemo još jedan unos (ako igrač sa ovim imenom već ne postoji?)
+     *
+     * @param igrac
+     */
+    public static void sacuvajInformacijeOIgracu(Player igrac) {
+        // TODO implementation
+    }
+
     public static void dozvoliUnosSamoBrojeva(Scanner ulaz, String poruka) {
         while (!ulaz.hasNextInt()) {
             System.out.println("Loš unos. Pokušajte ponovo.");
