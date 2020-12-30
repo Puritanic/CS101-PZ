@@ -8,10 +8,12 @@ public class GameUtils {
     /**
      * @see "https://stackoverflow.com/a/5762502/7453363"
      */
-    private static final String RED = "\033[0;31m";     // RED
-    private static final String GREEN = "\033[0;32m";   // GREEN
+    private static final String RED = "\033[0;31m";
+    private static final String GREEN = "\033[0;32m";
+    public static final String YELLOW = "\033[0;33m";
     private static final String GREEN_BOLD = "\033[1;32m";
     private static final String RED_BOLD = "\033[1;31m";
+    public static final String YELLOW_BOLD = "\033[1;33m";
     private static final String RESET = "\033[0m";  // Text Reset
 
     /**
@@ -225,9 +227,8 @@ public class GameUtils {
 
     public static void dozvoliUnosSamoBrojeva(Scanner ulaz, String poruka) {
         while (!ulaz.hasNextInt()) {
-            System.out.println("Loš unos. Pokušajte ponovo.");
+            logRed(poruka, true);
             ulaz.next();
-            System.out.print(poruka);
         }
     }
 
@@ -238,19 +239,33 @@ public class GameUtils {
             case "res":
                 return true;
             default:
+                System.out.print("Komanda nije dobra! Pokušajte ponovo: ");
                 return false;
         }
     }
 
-    public static void logGreen(String poruka) {
+    public static void logGreen(String poruka , boolean withNewLine) {
         System.out.print(GREEN + poruka + RESET);
+        if (withNewLine) System.out.println();
     }
 
-    public static void logRed(String poruka) {
+    public static void logYellow(String poruka , boolean withNewLine) {
+        System.out.print(YELLOW + poruka + RESET);
+        if (withNewLine) System.out.println();
+    }
+
+    public static void logYellowB(String poruka , boolean withNewLine) {
+        System.out.print(YELLOW_BOLD + poruka + RESET);
+        if (withNewLine) System.out.println();
+    }
+
+    public static void logRed(String poruka, boolean withNewLine) {
         System.out.print(RED + poruka + RESET);
+        if (withNewLine) System.out.println();
     }
 
-    public static void logGreenB(String poruka) {
+    public static void logGreenB(String poruka, boolean withNewLine) {
         System.out.print(GREEN_BOLD + poruka + RESET);
+        if (withNewLine) System.out.println();
     }
 }
