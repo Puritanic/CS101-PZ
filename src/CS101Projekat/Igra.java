@@ -32,7 +32,7 @@ public class Igra {
             }
 
             GameUtils.logYellowB("------------------------------------", true);
-            GameUtils.logYellowB("Tačan odgovor je pod rednim brojem: ", false);
+            GameUtils.logYellowB("Tačan odgovor je pod rednim brojem...? ", false);
 
             int redniBrojOdgovora = 0;
             while (redniBrojOdgovora <= 0 || redniBrojOdgovora > brojOdgovora) {

@@ -23,11 +23,12 @@ public class Main {
             komanda = unos.next();
         }
         // 5. Obradi unetu komandu koja je validna
-        System.out.println("Unos: " + komanda);
         switch (komanda) {
             case "start":
                 // 5a. Kreiraj igraca
-                pripremiIgru(pitanja, igraci);
+                Player igrac = pripremiIgru(igraci);
+                // 5b. Pokreni igru
+                pokreniIgru(igrac, pitanja);
                 break;
             case "res":
                 System.out.println("Prikaži rezultate");
@@ -38,7 +39,7 @@ public class Main {
         }
     }
 
-    static void pripremiIgru(ArrayList<Pitanje> pitanja, ArrayList<Player> igraci){
+    static Player pripremiIgru(ArrayList<Player> igraci){
         Scanner unos = new Scanner(System.in);
         GameUtils.logGreen("Unesite ime: ", false);
         String ime = unos.next();
@@ -46,13 +47,10 @@ public class Main {
             System.out.println("Ime igrača mora biti izmedju dva i 10 karaktera");
             ime = unos.next();
         }
-        System.out.println("Vaše ime je: " + ime);
-        Player igrac = new Player(ime);
-        pokreniIgru(igrac, pitanja);
+        return new Player(ime);
     }
 
     static void pokreniIgru(Player igrac,ArrayList<Pitanje> pitanja){
-        System.out.println(Arrays.toString(pitanja.toArray()));
         Collections.shuffle(pitanja);
         ArrayList<Pitanje> _pitanja = new ArrayList<>();
         int counter = 0;
@@ -64,7 +62,6 @@ public class Main {
                 break;
             }
         }
-        System.out.println(Arrays.toString(_pitanja.toArray()));
         Igra igra = new Igra(_pitanja, igrac);
         igra.pokreniIgru();
     }
