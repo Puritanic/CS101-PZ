@@ -7,6 +7,7 @@ import java.util.Scanner;
 public class Igra {
     ArrayList<Pitanje> pitanja;
     Player igrac;
+    private int brojTacnihOdgovora;
 
     Igra() {
     }
@@ -27,19 +28,36 @@ public class Igra {
             int brojOdgovora = odgovori.length;
 
             for (int i = 0; i < brojOdgovora; i++) {
-                GameUtils.logYellow((i + 1) + ". " + odgovori[i].getOdgovor(), true);
+                GameUtils.logYellow((i + 1) + ". " + odgovori[i].getOdgovor().trim(), true);
             }
 
             GameUtils.logYellowB("------------------------------------", true);
             GameUtils.logYellowB("Tačan odgovor je pod rednim brojem: ", false);
+            int redniBrojOdgovora = 0;
 
-            while (!unos.hasNextInt()) {
-                GameUtils.logRed("Uneta vrednost mora biti ceo broj izmedju 1 i " + brojOdgovora + ". Pokušajte ponovo: ", true);
-                unos.next();
+            while (redniBrojOdgovora <= 0 || redniBrojOdgovora > brojOdgovora) {
+                while (!unos.hasNextInt()) {
+                    GameUtils.logRed("Uneta vrednost mora biti ceo broj izmedju 1 i " + brojOdgovora + ". Pokušajte ponovo: ", true);
+                    unos.next();
+                }
+                redniBrojOdgovora = unos.nextInt();
+                if (redniBrojOdgovora <= 0 || redniBrojOdgovora > brojOdgovora) {
+                    GameUtils.logRed("Uneta vrednost mora biti ceo broj izmedju 1 i " + brojOdgovora + ". Pokušajte ponovo: ", true);
+                }
             }
+            boolean odgovorJeTacan = odgovori[redniBrojOdgovora - 1].getjeTacan();
+            if (odgovorJeTacan) {
+                GameUtils.logGreenB("Odgovor je tačan.", true);
+                brojTacnihOdgovora++;
+            } else {
+                GameUtils.logRedB("Odgovor nije tačan.", true);
+            }
+        }
 
-            int odgovor = unos.nextInt();
-            System.out.println("Odgovor: " + odgovor);
+        if(brojTacnihOdgovora < 5){
+            GameUtils.logRedB("Broj Tačnih odgovora: " + brojTacnihOdgovora + "/10", true);
+        } else {
+            GameUtils.logGreenB("Broj Tačnih odgovora: " + brojTacnihOdgovora + "/10", true);
         }
         unos.close();
     }

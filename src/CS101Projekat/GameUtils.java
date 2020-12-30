@@ -249,6 +249,11 @@ public class GameUtils {
         if (withNewLine) System.out.println();
     }
 
+    public static void logGreenB(String poruka, boolean withNewLine) {
+        System.out.print(GREEN_BOLD + poruka + RESET);
+        if (withNewLine) System.out.println();
+    }
+
     public static void logYellow(String poruka , boolean withNewLine) {
         System.out.print(YELLOW + poruka + RESET);
         if (withNewLine) System.out.println();
@@ -264,8 +269,8 @@ public class GameUtils {
         if (withNewLine) System.out.println();
     }
 
-    public static void logGreenB(String poruka, boolean withNewLine) {
-        System.out.print(GREEN_BOLD + poruka + RESET);
+    public static void logRedB(String poruka, boolean withNewLine) {
+        System.out.print(RED_BOLD + poruka + RESET);
         if (withNewLine) System.out.println();
     }
 }
