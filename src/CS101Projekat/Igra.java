@@ -33,18 +33,20 @@ public class Igra {
 
             GameUtils.logYellowB("------------------------------------", true);
             GameUtils.logYellowB("Tačan odgovor je pod rednim brojem: ", false);
-            int redniBrojOdgovora = 0;
 
+            int redniBrojOdgovora = 0;
             while (redniBrojOdgovora <= 0 || redniBrojOdgovora > brojOdgovora) {
+                String greskaMsg = "Uneta vrednost mora biti ceo broj izmedju 1 i " + brojOdgovora + ". Pokušajte ponovo: ";
                 while (!unos.hasNextInt()) {
-                    GameUtils.logRed("Uneta vrednost mora biti ceo broj izmedju 1 i " + brojOdgovora + ". Pokušajte ponovo: ", true);
+                    GameUtils.logRed(greskaMsg, true);
                     unos.next();
                 }
                 redniBrojOdgovora = unos.nextInt();
                 if (redniBrojOdgovora <= 0 || redniBrojOdgovora > brojOdgovora) {
-                    GameUtils.logRed("Uneta vrednost mora biti ceo broj izmedju 1 i " + brojOdgovora + ". Pokušajte ponovo: ", true);
+                    GameUtils.logRed(greskaMsg, true);
                 }
             }
+
             boolean odgovorJeTacan = odgovori[redniBrojOdgovora - 1].getjeTacan();
             if (odgovorJeTacan) {
                 GameUtils.logGreenB("Odgovor je tačan.", true);
