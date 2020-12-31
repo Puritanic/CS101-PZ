@@ -3,7 +3,6 @@ package CS101Projekat;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Scanner;
 
@@ -29,6 +28,8 @@ public class Main {
                 Player igrac = pripremiIgru(igraci);
                 // 5b. Pokreni igru
                 pokreniIgru(igrac, pitanja);
+                // Nakon završene igre sačuvaj informacije o igraču
+                upisiIgraca(igrac);
                 break;
             case "res":
                 System.out.println("Prikaži rezultate");
@@ -37,9 +38,10 @@ public class Main {
                 prikaziKomande();
                 break;
         }
+        unos.close();
     }
 
-    static Player pripremiIgru(ArrayList<Player> igraci){
+    static Player pripremiIgru(ArrayList<Player> igraci) {
         Scanner unos = new Scanner(System.in);
         GameUtils.logGreen("Unesite ime: ", false);
         String ime = unos.next();
@@ -50,23 +52,27 @@ public class Main {
         return new Player(ime);
     }
 
-    static void pokreniIgru(Player igrac,ArrayList<Pitanje> pitanja){
-        Collections.shuffle(pitanja);
-        ArrayList<Pitanje> _pitanja = new ArrayList<>();
-        int counter = 0;
-        for (Pitanje pitanje : pitanja) {
-            if (counter < 10){
-            _pitanja.add(pitanje);
-            counter++;
-            } else {
-                break;
+    static void pokreniIgru(Player igrac, ArrayList<Pitanje> pitanja) {
+        boolean igrajPonovo;
+        do {
+            Collections.shuffle(pitanja);
+            ArrayList<Pitanje> _pitanja = new ArrayList<>();
+            int counter = 0;
+            for (Pitanje pitanje : pitanja) {
+                if (counter < 10) {
+                    _pitanja.add(pitanje);
+                    counter++;
+                } else {
+                    break;
+                }
             }
-        }
-        Igra igra = new Igra(_pitanja, igrac);
-        igra.pokreniIgru();
+            Igra igra = new Igra(_pitanja, igrac);
+            igrajPonovo = igra.pokreniIgru();
+        } while (igrajPonovo);
+        System.out.println("Kraj programa!");
     }
 
-    static void upisiIgraca(Player igrac){
+    static void upisiIgraca(Player igrac) {
         // ako igrac sa istim imenom vec postoji, pitamo korisnika da li je on taj igrac, a ako nije onda inkrementujemo broj igraca sa tim imenom
         // npr Jovan, Jovan 2, Jovan 3
         // 2. nakon ovoga pokrenemo klasu Igra, prosledimo listu od 10 pitanja i instancu igraca koju smo kreirali u koraku 1.
@@ -77,7 +83,7 @@ public class Main {
         prikaziKomande();
     }
 
-    static void prikaziKomande(){
+    static void prikaziKomande() {
         GameUtils.logGreen("Za pregled rezultata unesite komandu ", false);
         GameUtils.logGreenB("res", true);
 

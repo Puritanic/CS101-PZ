@@ -14,6 +14,7 @@ public class GameUtils {
     private static final String GREEN_BOLD = "\033[1;32m";
     private static final String RED_BOLD = "\033[1;31m";
     public static final String YELLOW_BOLD = "\033[1;33m";
+    public static final String YELLOW_BOLD_BRIGHT = "\033[1;93m";
     private static final String RESET = "\033[0m";  // Text Reset
 
     /**
@@ -46,7 +47,7 @@ public class GameUtils {
         listaPitanja.add(pitanje3);
 
         Pitanje pitanje4 = new Pitanje();
-        pitanje4.setPitanje(" Choose the appropriate data type for this field: isSwimmer");
+        pitanje4.setPitanje("Choose the appropriate data type for this field: isSwimmer");
         Odgovor[] odgovori4 = {new Odgovor("double", false), new Odgovor("boolean", true), new Odgovor("string", false), new Odgovor("int", false)};
         pitanje4.setOdgovori(odgovori4);
         pitanje4.setIndeksTacnogOdgovora(1);
@@ -61,7 +62,7 @@ public class GameUtils {
 
         Pitanje pitanje6 = new Pitanje();
         pitanje6.setPitanje("Object-Oriented Programming means ...");
-        Odgovor[] odgovori6 = {new Odgovor(" Being objective about what you develop", false), new Odgovor(" Designing the application based on the objects discovered when analysing the problem", true), new Odgovor(" Writing an algorithm before writing your program and having a test plan", false), new Odgovor(" Writing a program composed of Java classes", false)};
+        Odgovor[] odgovori6 = {new Odgovor("Being objective about what you develop", false), new Odgovor(" Designing the application based on the objects discovered when analysing the problem", true), new Odgovor(" Writing an algorithm before writing your program and having a test plan", false), new Odgovor(" Writing a program composed of Java classes", false)};
         pitanje6.setOdgovori(odgovori6);
         pitanje6.setIndeksTacnogOdgovora(1);
         listaPitanja.add(pitanje6);
@@ -74,14 +75,14 @@ public class GameUtils {
         listaPitanja.add(pitanje7);
 
         Pitanje pitanje8 = new Pitanje();
-        pitanje8.setPitanje(" Which of the following is not a Java keyword?");
+        pitanje8.setPitanje("Which of the following is not a Java keyword?");
         Odgovor[] odgovori8 = {new Odgovor("static", false), new Odgovor("try", false), new Odgovor("Integer", true), new Odgovor("new", false)};
         pitanje8.setOdgovori(odgovori8);
         pitanje8.setIndeksTacnogOdgovora(2);
         listaPitanja.add(pitanje8);
 
         Pitanje pitanje9 = new Pitanje();
-        pitanje9.setPitanje(" What is an assignment statement ?");
+        pitanje9.setPitanje("What is an assignment statement ?");
         Odgovor[] odgovori9 = {new Odgovor(" Adding a number to an int", false), new Odgovor(" Assigning a multiplication", false), new Odgovor(" Assigning a value to a variable", true), new Odgovor(" Assigning a name to a variable", false)};
         pitanje9.setOdgovori(odgovori9);
         pitanje9.setIndeksTacnogOdgovora(2);
@@ -102,7 +103,7 @@ public class GameUtils {
         listaPitanja.add(pitanje11);
 
         Pitanje pitanje12 = new Pitanje();
-        pitanje12.setPitanje(" What is the size of a Char in Java?");
+        pitanje12.setPitanje("What is the size of a Char in Java?");
         Odgovor[] odgovori12 = {new Odgovor("4 bits", false), new Odgovor("7 bits", false), new Odgovor("8 bits", false), new Odgovor("16 bits", true)};
         pitanje12.setOdgovori(odgovori12);
         pitanje12.setIndeksTacnogOdgovora(3);
@@ -117,7 +118,7 @@ public class GameUtils {
 
         Pitanje pitanje14 = new Pitanje();
         pitanje14.setPitanje("What is essential in making sure that your loop is not infinite ?");
-        Odgovor[] odgovori14 = {new Odgovor(" That your Boolean statement will at some point be false", false), new Odgovor(" That there is a Boolean statement somewhere in your code", false), new Odgovor(" That your Boolean statement will at some point be true", false), new Odgovor(" All of the choices", true)};
+        Odgovor[] odgovori14 = {new Odgovor("That your Boolean statement will at some point be false", false), new Odgovor(" That there is a Boolean statement somewhere in your code", false), new Odgovor(" That your Boolean statement will at some point be true", false), new Odgovor(" All of the choices", true)};
         pitanje14.setOdgovori(odgovori14);
         pitanje14.setIndeksTacnogOdgovora(3);
         listaPitanja.add(pitanje14);
@@ -261,6 +262,12 @@ public class GameUtils {
 
     public static void logYellowB(String poruka , boolean withNewLine) {
         System.out.print(YELLOW_BOLD + poruka + RESET);
+        if (withNewLine) System.out.println();
+    }
+
+
+    public static void logYellowBB(String poruka , boolean withNewLine) {
+        System.out.print(YELLOW_BOLD_BRIGHT + poruka + RESET);
         if (withNewLine) System.out.println();
     }
 

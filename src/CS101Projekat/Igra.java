@@ -18,7 +18,7 @@ public class Igra {
         // Maybe clear console here?
     }
 
-    public void pokreniIgru() {
+    public boolean pokreniIgru() {
         Scanner unos = new Scanner(System.in);
 
         for (Pitanje pitanje : pitanja) {
@@ -28,7 +28,8 @@ public class Igra {
             int brojOdgovora = odgovori.length;
 
             for (int i = 0; i < brojOdgovora; i++) {
-                GameUtils.logYellow((i + 1) + ". " + odgovori[i].getOdgovor().trim(), true);
+                GameUtils.logYellowBB((i + 1) + ". ", false);
+                GameUtils.logYellow(odgovori[i].getOdgovor().trim(), true);
             }
 
             GameUtils.logYellowB("------------------------------------", true);
@@ -56,12 +57,17 @@ public class Igra {
             }
         }
 
-        if(brojTacnihOdgovora < 5){
+        if (brojTacnihOdgovora < 5) {
             GameUtils.logRedB("Broj Tačnih odgovora: " + brojTacnihOdgovora + "/10", true);
         } else {
             GameUtils.logGreenB("Broj Tačnih odgovora: " + brojTacnihOdgovora + "/10", true);
         }
-        unos.close();
+
+        GameUtils.logYellowB("------------------------------------", true);
+        GameUtils.logGreenB("Pokreni igru ponovo? Nn/Dd - ", false);
+        char pokreniPonovo = 'D';
+
+        return Character.toUpperCase(unos.next().charAt(0)) == pokreniPonovo;
     }
 
     public Player getIgrac() {
