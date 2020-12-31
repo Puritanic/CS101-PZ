@@ -3,7 +3,7 @@ package CS101Projekat;
 import java.io.Serializable;
 import java.util.Random;
 
-public class Player extends Osoba implements Serializable {
+public class Player extends Osoba implements Serializable, Comparable<Player> {
     private final int id;
     private int brojPoena;
 
@@ -58,5 +58,15 @@ public class Player extends Osoba implements Serializable {
         return super.toString() + "Player{" +
                 "brojPoena=" + brojPoena +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Player igrac) {
+        if (this.brojPoena > igrac.getBrojPoena()){
+            return -1;
+        } else if (this.brojPoena < igrac.getBrojPoena()){
+            return 1;
+        }
+        return 0;
     }
 }

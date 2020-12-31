@@ -33,6 +33,8 @@ public class Main {
                 break;
             case "res":
                 System.out.println("Prikaži rezultate");
+                TabelaRezultata tabelaRezultata = new TabelaRezultata(igraci);
+                tabelaRezultata.prikaziTabelu();
                 break;
             case "help":
                 prikaziKomande();
