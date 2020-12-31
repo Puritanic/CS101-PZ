@@ -6,13 +6,9 @@ public class Odgovor implements Serializable {
     private String odgovor;
     private boolean jeTacan;
 
-    Odgovor(String odgovor, boolean jeTacan){
+    Odgovor(String odgovor, boolean jeTacan) {
         this.odgovor = odgovor;
         this.jeTacan = jeTacan;
-    }
-
-    public void setOdgovor(String odgovor) {
-        this.odgovor = odgovor;
     }
 
     public void setJeTacan(boolean jeTacan) {
@@ -21,6 +17,10 @@ public class Odgovor implements Serializable {
 
     public String getOdgovor() {
         return odgovor;
+    }
+
+    public void setOdgovor(String odgovor) {
+        this.odgovor = odgovor;
     }
 
     public boolean getjeTacan() {

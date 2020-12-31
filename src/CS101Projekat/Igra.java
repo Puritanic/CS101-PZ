@@ -22,52 +22,52 @@ public class Igra {
         Scanner unos = new Scanner(System.in);
 
         for (Pitanje pitanje : pitanja) {
-            GameUtils.logYellowB("------------------------------------", true);
-            GameUtils.logGreenB(pitanje.getPitanje().trim(), true);
+            LogUtils.logYellowB("------------------------------------", true);
+            LogUtils.logGreenB(pitanje.getPitanje().trim(), true);
             Odgovor[] odgovori = pitanje.getOdgovori();
             int brojOdgovora = odgovori.length;
 
             for (int i = 0; i < brojOdgovora; i++) {
-                GameUtils.logYellowBB((i + 1) + ". ", false);
-                GameUtils.logYellow(odgovori[i].getOdgovor().trim(), true);
+                LogUtils.logYellowBB((i + 1) + ". ", false);
+                LogUtils.logYellow(odgovori[i].getOdgovor().trim(), true);
             }
 
-            GameUtils.logYellowB("------------------------------------", true);
-            GameUtils.logYellowB("Tačan odgovor je pod rednim brojem...? ", false);
+            LogUtils.logYellowB("------------------------------------", true);
+            LogUtils.logYellowB("Tačan odgovor je pod rednim brojem...? ", false);
 
             int redniBrojOdgovora = 0;
             while (redniBrojOdgovora <= 0 || redniBrojOdgovora > brojOdgovora) {
                 String greskaMsg = "Uneta vrednost mora biti ceo broj izmedju 1 i " + brojOdgovora + ". Pokušajte ponovo: ";
                 while (!unos.hasNextInt()) {
-                    GameUtils.logRed(greskaMsg, true);
+                    LogUtils.logRed(greskaMsg, true);
                     unos.next();
                 }
                 redniBrojOdgovora = unos.nextInt();
                 if (redniBrojOdgovora <= 0 || redniBrojOdgovora > brojOdgovora) {
-                    GameUtils.logRed(greskaMsg, true);
+                    LogUtils.logRed(greskaMsg, true);
                 }
             }
 
             boolean odgovorJeTacan = odgovori[redniBrojOdgovora - 1].getjeTacan();
             if (odgovorJeTacan) {
-                GameUtils.logGreenB("Odgovor je tačan.", true);
+                LogUtils.logGreenB("Odgovor je tačan.", true);
                 brojTacnihOdgovora++;
             } else {
-                GameUtils.logRedB("Odgovor nije tačan.", true);
+                LogUtils.logRedB("Odgovor nije tačan.", true);
             }
         }
 
         if (brojTacnihOdgovora < 5) {
-            GameUtils.logRedB("Broj Tačnih odgovora: " + brojTacnihOdgovora + "/10", true);
+            LogUtils.logRedB("Broj Tačnih odgovora: " + brojTacnihOdgovora + "/10", true);
         } else {
-            GameUtils.logGreenB("Broj Tačnih odgovora: " + brojTacnihOdgovora + "/10", true);
+            LogUtils.logGreenB("Broj Tačnih odgovora: " + brojTacnihOdgovora + "/10", true);
         }
 
-        GameUtils.logYellowB("------------------------------------", true);
-        GameUtils.logGreenB("Pokreni igru ponovo? Nn/Dd - ", false);
-        char pokreniPonovo = 'D';
+        igrac.setBrojPoena(brojTacnihOdgovora * 10);
 
-        return Character.toUpperCase(unos.next().charAt(0)) == pokreniPonovo;
+        LogUtils.logYellowB("------------------------------------", true);
+        LogUtils.logGreenB("Pokreni igru ponovo? Nn/Dd - ", false);
+        return Character.toUpperCase(unos.next().charAt(0)) == 'D';
     }
 
     public Player getIgrac() {

@@ -2,21 +2,8 @@ package CS101Projekat;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class GameUtils {
-    /**
-     * @see "https://stackoverflow.com/a/5762502/7453363"
-     */
-    private static final String RED = "\033[0;31m";
-    private static final String GREEN = "\033[0;32m";
-    public static final String YELLOW = "\033[0;33m";
-    private static final String GREEN_BOLD = "\033[1;32m";
-    private static final String RED_BOLD = "\033[1;31m";
-    public static final String YELLOW_BOLD = "\033[1;33m";
-    public static final String YELLOW_BOLD_BRIGHT = "\033[1;93m";
-    private static final String RESET = "\033[0m";  // Text Reset
-
     /**
      * Generiše listu pitanja i odgovora i nakon toga vraća ArrayList sa tim vrednostima
      *
@@ -151,10 +138,9 @@ public class GameUtils {
         try {
             for (Pitanje pitanje : listaPitanja) {
                 output.writeObject(pitanje);
-                // System.out.println(pitanje.toString());
             }
         } catch (IOException ex) {
-            ex.getStackTrace();
+            ex.printStackTrace();
         }
         output.close();
         return listaPitanja;
@@ -178,7 +164,7 @@ public class GameUtils {
         } catch (EOFException ex) {
             System.out.println("Sva pitanja su učitana");
         } catch (IOException ex) {
-            ex.getStackTrace();
+            ex.printStackTrace();
         } catch (ClassNotFoundException e) {
             System.out.println("Greška pri učitavanju klasa iz objekta.");
             e.printStackTrace();
@@ -193,25 +179,30 @@ public class GameUtils {
      */
     public static ArrayList<Player> ucitajFajlSaIgracima() throws IOException {
         ArrayList<Player> igraci = new ArrayList<>();
-        ObjectInputStream input = null;
+        boolean fajlSaIgracimaPostoji = new File("players.dat").exists();
+        if (!fajlSaIgracimaPostoji) {
+            System.out.println("Fajl sa igracima ne postoji!");
+            return igraci;
+        }
+        ObjectInputStream input = new ObjectInputStream(new BufferedInputStream(new FileInputStream("players.dat")));
 
         try {
-            input = new ObjectInputStream(new BufferedInputStream(new FileInputStream("players.dat")));
             while (true) {
                 Player igrac = (Player) input.readObject();
                 igraci.add(igrac);
-                // System.out.println(igrac.toString());
+                System.out.println(igrac.toString());
             }
         } catch (EOFException ex) {
             System.out.println("Podaci o igračima su učitani");
         } catch (IOException ex) {
             System.out.println("IO greška");
+            ex.printStackTrace();
         } catch (ClassNotFoundException e) {
             System.out.println("Greška pri učitavanju klasa iz objekta.");
-        }
-        if (input != null) {
+        } finally {
             input.close();
         }
+
         return igraci;
     }
 
@@ -222,15 +213,21 @@ public class GameUtils {
      *
      * @param igrac
      */
-    public static void sacuvajInformacijeOIgracu(Player igrac) {
-        // TODO implementation
-    }
-
-    public static void dozvoliUnosSamoBrojeva(Scanner ulaz, String poruka) {
-        while (!ulaz.hasNextInt()) {
-            logRed(poruka, true);
-            ulaz.next();
+    public static void sacuvajInformacijeOIgracu(ArrayList<Player> igraci, Player igrac) throws IOException {
+        ObjectOutputStream output = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream("players.dat")));
+        igraci.add(igrac);
+        try {
+            for (Player _igrac : igraci) {
+                output.writeObject(_igrac);
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
+            output.close();
         }
+        // TODO implementation
+        // ako igrac sa istim imenom vec postoji, pitamo korisnika da li je on taj igrac, a ako nije onda inkrementujemo broj igraca sa tim imenom
+        // npr Jovan, Jovan 2, Jovan 3
     }
 
     public static boolean validirajKomandu(String komanda) {
@@ -238,46 +235,11 @@ public class GameUtils {
             case "start":
             case "help":
             case "res":
+            case "exit":
                 return true;
             default:
                 System.out.print("Komanda nije dobra! Pokušajte ponovo: ");
                 return false;
         }
-    }
-
-    public static void logGreen(String poruka , boolean withNewLine) {
-        System.out.print(GREEN + poruka + RESET);
-        if (withNewLine) System.out.println();
-    }
-
-    public static void logGreenB(String poruka, boolean withNewLine) {
-        System.out.print(GREEN_BOLD + poruka + RESET);
-        if (withNewLine) System.out.println();
-    }
-
-    public static void logYellow(String poruka , boolean withNewLine) {
-        System.out.print(YELLOW + poruka + RESET);
-        if (withNewLine) System.out.println();
-    }
-
-    public static void logYellowB(String poruka , boolean withNewLine) {
-        System.out.print(YELLOW_BOLD + poruka + RESET);
-        if (withNewLine) System.out.println();
-    }
-
-
-    public static void logYellowBB(String poruka , boolean withNewLine) {
-        System.out.print(YELLOW_BOLD_BRIGHT + poruka + RESET);
-        if (withNewLine) System.out.println();
-    }
-
-    public static void logRed(String poruka, boolean withNewLine) {
-        System.out.print(RED + poruka + RESET);
-        if (withNewLine) System.out.println();
-    }
-
-    public static void logRedB(String poruka, boolean withNewLine) {
-        System.out.print(RED_BOLD + poruka + RESET);
-        if (withNewLine) System.out.println();
     }
 }

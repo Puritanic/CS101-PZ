@@ -25,11 +25,11 @@ public class Main {
         switch (komanda) {
             case "start":
                 // 5a. Kreiraj igraca
-                Player igrac = pripremiIgru(igraci);
+                Player igrac = pripremiIgru();
                 // 5b. Pokreni igru
                 pokreniIgru(igrac, pitanja);
                 // Nakon završene igre sačuvaj informacije o igraču
-                upisiIgraca(igrac);
+                GameUtils.sacuvajInformacijeOIgracu(igraci, igrac);
                 break;
             case "res":
                 System.out.println("Prikaži rezultate");
@@ -37,13 +37,15 @@ public class Main {
             case "help":
                 prikaziKomande();
                 break;
+            case "exit":
+                break;
         }
         unos.close();
     }
 
-    static Player pripremiIgru(ArrayList<Player> igraci) {
+    static Player pripremiIgru() {
         Scanner unos = new Scanner(System.in);
-        GameUtils.logGreen("Unesite ime: ", false);
+        LogUtils.logGreen("Unesite ime: ", false);
         String ime = unos.next();
         while (ime.length() < 2 || ime.length() > 10) {
             System.out.println("Ime igrača mora biti izmedju dva i 10 karaktera");
@@ -72,25 +74,22 @@ public class Main {
         System.out.println("Kraj programa!");
     }
 
-    static void upisiIgraca(Player igrac) {
-        // ako igrac sa istim imenom vec postoji, pitamo korisnika da li je on taj igrac, a ako nije onda inkrementujemo broj igraca sa tim imenom
-        // npr Jovan, Jovan 2, Jovan 3
-        // 2. nakon ovoga pokrenemo klasu Igra, prosledimo listu od 10 pitanja i instancu igraca koju smo kreirali u koraku 1.
-    }
-
     static void pocetnaInfoPoruka() {
-        GameUtils.logGreen("Dobrodošli u Java kviz!", true);
+        LogUtils.logGreen("Dobrodošli u Java kviz!", true);
         prikaziKomande();
     }
 
     static void prikaziKomande() {
-        GameUtils.logGreen("Za pregled rezultata unesite komandu ", false);
-        GameUtils.logGreenB("res", true);
+        LogUtils.logGreen("Za pregled rezultata unesite komandu ", false);
+        LogUtils.logGreenB("res", true);
 
-        GameUtils.logGreen("Za početak igre unesite komandu ", false);
-        GameUtils.logGreenB("start", true);
+        LogUtils.logGreen("Za početak igre unesite komandu ", false);
+        LogUtils.logGreenB("start", true);
 
-        GameUtils.logGreenB("Unesite komandu: ", false);
+        LogUtils.logGreen("Za izlazak iz programa unesite komandu ", false);
+        LogUtils.logGreenB("exit", true);
+
+        LogUtils.logGreenB("Unesite komandu: ", false);
     }
 
     static ArrayList<Pitanje> ucitajPitanja() throws IOException {

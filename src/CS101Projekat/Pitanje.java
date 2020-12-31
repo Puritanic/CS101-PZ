@@ -8,36 +8,37 @@ public class Pitanje implements Serializable {
     private Odgovor[] odgovori;
     private int indeksTacnogOdgovora;
 
-    Pitanje(){}
+    Pitanje() {
+    }
 
-    Pitanje(String pitanje, Odgovor[] odgovori, int indeksTacnogOdgovora){
+    Pitanje(String pitanje, Odgovor[] odgovori, int indeksTacnogOdgovora) {
         this.pitanje = pitanje;
         this.odgovori = odgovori;
         this.indeksTacnogOdgovora = indeksTacnogOdgovora;
-    }
-
-    public void setPitanje(String pitanje) {
-        this.pitanje = pitanje;
     }
 
     public String getPitanje() {
         return pitanje;
     }
 
-    public void setOdgovori(Odgovor[] odgovori) {
-        this.odgovori = odgovori;
+    public void setPitanje(String pitanje) {
+        this.pitanje = pitanje;
     }
 
     public Odgovor[] getOdgovori() {
         return odgovori;
     }
 
-    public void setIndeksTacnogOdgovora(int indeksTacnogOdgovora) {
-        this.indeksTacnogOdgovora = indeksTacnogOdgovora;
+    public void setOdgovori(Odgovor[] odgovori) {
+        this.odgovori = odgovori;
     }
 
     public int getIndeksTacnogOdgovora() {
         return indeksTacnogOdgovora;
+    }
+
+    public void setIndeksTacnogOdgovora(int indeksTacnogOdgovora) {
+        this.indeksTacnogOdgovora = indeksTacnogOdgovora;
     }
 
     @Override
