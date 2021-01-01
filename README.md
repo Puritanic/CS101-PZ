@@ -39,7 +39,7 @@ Projekat **MORA** da sadrži:
  - [x] Rad sa klasom String
  - [x] Korišćenje više uslova (if ili switch) i više petlji
  - [x] Bar jedan Enum (nabrojivi tip)
- - [ ] Rad sa izuzecima (kreiranje novog izuzetka i njegova obrada)
+ - [x] Rad sa izuzecima (kreiranje novog izuzetka i njegova obrada)
  - [x] Rad sa datotekama (čitanje i pisanje)
  - [x] Podatke koje koristi aplikacija unosi korisnik ili se čitaju iz datoteka, izbegavati fiksirane vrednosti u kodu
  - [x] Enkapsulaciju - svaka klasa mora imati konstruktore, getere, setere i override toString metode.
