@@ -15,10 +15,14 @@ public class Igra {
     Igra(ArrayList<Pitanje> pitanja, Player igrac) {
         this.pitanja = pitanja;
         this.igrac = igrac;
-        // Maybe clear console here?
+        LogUtils.clearConsole();
     }
 
-    public boolean pokreniIgru() {
+    /**
+     * Pokreće kviz, za svako pitanje štampamo ponudjene odgovore, i proveravamo da li je igrač odgovorio tačno nakon unosa
+     * @return - boolean vrednost, koja označava da je igrač odlučio da igra ponovo
+     */
+    public boolean start() {
         Scanner unos = new Scanner(System.in);
 
         for (Pitanje pitanje : pitanja) {
@@ -63,7 +67,8 @@ public class Igra {
             LogUtils.logGreenB("Broj Tačnih odgovora: " + brojTacnihOdgovora + "/10", true);
         }
 
-        igrac.setBrojPoena(brojTacnihOdgovora * 10);
+        igrac.setBrojPoena(igrac.getBrojPoena() + brojTacnihOdgovora * 10);
+        igrac.setBrojZavrsenihIgara(igrac.getBrojZavrsenihIgara() + 1);
 
         LogUtils.logYellowB("------------------------------------", true);
         LogUtils.logGreenB("Pokreni igru ponovo? Nn/Dd - ", false);

@@ -159,7 +159,6 @@ public class GameUtils {
             while (true) {
                 Pitanje pitanje = (Pitanje) input.readObject();
                 listaPitanja.add(pitanje);
-                // System.out.println(pitanje.toString());
             }
         } catch (EOFException ex) {
             System.out.println("Sva pitanja su učitana");
@@ -174,33 +173,39 @@ public class GameUtils {
     }
 
     /**
-     * @return sačuvani podaci o igračima koji su pokretali igru
-     * @throws IOException
+     * Pokušava učitavanje podataka o igračima sa eskternog fajla:
+     *  - u slučaju da eksterni fajl postoji, učitavamo objekte iz njega i kastujemo ih u klasu Player
+     *  - u slučaju da eksterni fajl ne postoji, vraćamo praznu listu
+     * @return sačuvani podaci o igračima koji su pokretali igru, ili prazna lista
      */
-    public static ArrayList<Player> ucitajFajlSaIgracima() throws IOException {
+    public static ArrayList<Player> ucitajIgrace() {
         ArrayList<Player> igraci = new ArrayList<>();
         boolean fajlSaIgracimaPostoji = new File("players.dat").exists();
         if (!fajlSaIgracimaPostoji) {
             System.out.println("Fajl sa igracima ne postoji!");
             return igraci;
         }
-        ObjectInputStream input = new ObjectInputStream(new BufferedInputStream(new FileInputStream("players.dat")));
 
         try {
-            while (true) {
-                Player igrac = (Player) input.readObject();
-                igraci.add(igrac);
-                System.out.println(igrac.toString());
+            ObjectInputStream input = new ObjectInputStream(new BufferedInputStream(new FileInputStream("players.dat")));
+            try {
+                while (true) {
+                    Player igrac = (Player) input.readObject();
+                    igraci.add(igrac);
+//                    System.out.println(igrac.toString());
+                }
+            } catch (EOFException ex) {
+                System.out.println("Podaci o igračima su učitani");
+            } catch (IOException ex) {
+                System.out.println("IO greška");
+                ex.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                System.out.println("Greška pri učitavanju klasa iz objekta.");
+            } finally {
+                input.close();
             }
-        } catch (EOFException ex) {
-            System.out.println("Podaci o igračima su učitani");
         } catch (IOException ex) {
-            System.out.println("IO greška");
             ex.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            System.out.println("Greška pri učitavanju klasa iz objekta.");
-        } finally {
-            input.close();
         }
 
         return igraci;
@@ -211,11 +216,15 @@ public class GameUtils {
      * U slučaju da fajl ne postoji, kreiramo fajl i onda ubacujemo info
      * u suprotnom samo dodajemo još jedan unos (ako igrač sa ovim imenom već ne postoji?)
      *
-     * @param igrac
+     * @param igraci - Lista igrača
+     * @param igrac  - trenutni igrač
      */
     public static void sacuvajInformacijeOIgracu(ArrayList<Player> igraci, Player igrac) throws IOException {
         ObjectOutputStream output = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream("players.dat")));
-        igraci.add(igrac);
+        if (!igraci.contains(igrac)){
+            igraci.add(igrac);
+        }
+
         try {
             for (Player _igrac : igraci) {
                 output.writeObject(_igrac);
@@ -225,9 +234,6 @@ public class GameUtils {
         } finally {
             output.close();
         }
-        // TODO implementation
-        // ako igrac sa istim imenom vec postoji, pitamo korisnika da li je on taj igrac, a ako nije onda inkrementujemo broj igraca sa tim imenom
-        // npr Jovan, Jovan 2, Jovan 3
     }
 
     public static boolean validirajKomandu(String komanda) {
@@ -238,8 +244,50 @@ public class GameUtils {
             case "exit":
                 return true;
             default:
-                System.out.print("Komanda nije dobra! Pokušajte ponovo: ");
+                System.out.print("Komanda nije dobra! Za spisak dozvoljenih komandi unesite ");
+                LogUtils.logGreenB("help", true);
+                System.out.print("Pokušajte ponovo: ");
                 return false;
         }
+    }
+
+    static void pocetnaInfoPoruka() {
+        LogUtils.logGreen("Dobrodošli u Java kviz!", true);
+        prikaziKomande();
+    }
+
+    static void prikaziKomande() {
+        LogUtils.logGreen("Za pregled rezultata unesite komandu ", false);
+        LogUtils.logGreenB("res", true);
+
+        LogUtils.logGreen("Za početak igre unesite komandu ", false);
+        LogUtils.logGreenB("start", true);
+
+        LogUtils.logGreen("Za izlazak iz programa unesite komandu ", false);
+        LogUtils.logGreenB("exit", true);
+
+        LogUtils.logGreenB("Unesite komandu: ", false);
+    }
+
+    /**
+     * Proverava da li postoji fajl sa pitanjima:
+     * - ako ne postoji, generišemo novi fajl na osnovu liste pitanja koje imamo u programu
+     * - ako postoji, učitavamo taj fajl, i generišemo listu pitanja na osnovu njegovog sadržaja
+     *
+     * @return listu pitanja
+     */
+    static ArrayList<Pitanje> ucitajPitanja() {
+        boolean fajlSaPitanjimaPostoji = new File("pitanja.dat").exists();
+        ArrayList<Pitanje> pitanja = new ArrayList<>();
+        try {
+            if (fajlSaPitanjimaPostoji) {
+                pitanja = ucitajFajlSaPitanjima();
+            } else {
+                pitanja = kreirajFajlSaPitanjima();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return pitanja;
     }
 }

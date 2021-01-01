@@ -1,11 +1,14 @@
 package CS101Projekat;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 
 public class Player extends Osoba implements Serializable, Comparable<Player> {
     private final int id;
     private int brojPoena;
+    private int brojZavrsenihIgara;
 
     /**
      * Kreira Player klasu za novog igrača, u ovom slučaju nemamo ime
@@ -19,8 +22,7 @@ public class Player extends Osoba implements Serializable, Comparable<Player> {
     /**
      * Kreira Player klasu za novog igrača, u ovom slučaju imamo samo ime
      * broj poena je podrazumevano 0, i generišemo novi id.
-     *
-     * @param ime
+     * @param ime ime igrača
      */
     Player(String ime) {
         super(ime);
@@ -31,9 +33,9 @@ public class Player extends Osoba implements Serializable, Comparable<Player> {
     /**
      * Kreira Player klasu za već postojećeg igrača. U ovom slučaju imamo ime, id i broj poena igrača
      *
-     * @param ime
-     * @param brojPoena
-     * @param id
+     * @param ime ime igrača
+     * @param brojPoena broj poena igrača
+     * @param id identifikacioni broj igrača
      */
     Player(String ime, int brojPoena, int id) {
         super(ime);
@@ -53,10 +55,43 @@ public class Player extends Osoba implements Serializable, Comparable<Player> {
         this.brojPoena = brojPoena;
     }
 
+    public int getBrojZavrsenihIgara() {
+        return brojZavrsenihIgara;
+    }
+
+    public void setBrojZavrsenihIgara(int brojZavrsenihIgara) {
+        this.brojZavrsenihIgara = brojZavrsenihIgara;
+    }
+
+    /**
+     * @return novi igrač
+     */
+    public static Player kreirajIgraca(ArrayList<Player> igraci){
+        LogUtils.logGreen("Unesite ime: ", false);
+        Scanner unos = new Scanner(System.in);
+        String ime = unos.next();
+        while (ime.length() < 2 || ime.length() > 10) {
+            System.out.println("Ime igrača mora biti izmedju dva i 10 karaktera");
+            ime = unos.next();
+        }
+        // Proveri da li igrač već postoji
+        if (igraci.size() > 0){
+            for (Player igrac : igraci) {
+                if (igrac.getIme().equals(ime)){
+                    System.out.println("Igrač postoji! " + igrac.toString());
+                    return igrac;
+                }
+            }
+        }
+        return new Player(ime);
+    }
+
     @Override
     public String toString() {
-        return super.toString() + "Player{" +
-                "brojPoena=" + brojPoena +
+        return "Player{" +
+                "id=" + id +
+                ", brojPoena=" + brojPoena +
+                ", brojZavrsenihIgara=" + brojZavrsenihIgara +
                 '}';
     }
 

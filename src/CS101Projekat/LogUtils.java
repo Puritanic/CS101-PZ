@@ -2,6 +2,7 @@ package CS101Projekat;
 
 public class LogUtils {
     /**
+     * Omogućava da u konzoli štampamo tekst u raznim bojama
      * @see "https://stackoverflow.com/a/5762502/7453363"
      */
     private static final String YELLOW = "\033[0;33m";
@@ -46,5 +47,23 @@ public class LogUtils {
     public static void logRedB(String poruka, boolean withNewLine) {
         System.out.print(RED_BOLD + poruka + RESET);
         if (withNewLine) System.out.println();
+    }
+
+    /**
+     * Čisti konzolu, ali ne radi ako je terminal unutar IDE okruženja
+     * @see "https://stackoverflow.com/a/17015039"
+     */
+    public static void clearConsole() {
+        try {
+            final String os = System.getProperty("os.name");
+
+            if (os.contains("Windows")) {
+                Runtime.getRuntime().exec("cls");
+            } else {
+                Runtime.getRuntime().exec("clear");
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 }

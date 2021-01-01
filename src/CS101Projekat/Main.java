@@ -1,66 +1,69 @@
 package CS101Projekat;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         // 1. Učitaj pitanja i odgovore
-        ArrayList<Pitanje> pitanja = ucitajPitanja();
+        ArrayList<Pitanje> pitanja = GameUtils.ucitajPitanja();
         // 2. Učitaj informacije o igračima ako postoje
-        ArrayList<Player> igraci = ucitajIgrace();
+        ArrayList<Player> igraci = GameUtils.ucitajIgrace();
         // 3. Prikaži početnu poruku
-        pocetnaInfoPoruka();
+        GameUtils.pocetnaInfoPoruka();
         // 4. Pokreni Scanner i slušaj korisnički input
         Scanner unos = new Scanner(System.in);
         String komanda = unos.next();
-        // 4a. Dozvoli unos samo postojećih komandi, start, res, i help
-        while (!GameUtils.validirajKomandu(komanda)) {
+        // 4a. Slušamo korisnički input dok ne dobijemo komandu "exit" nakon koje zatvaramo program
+        do {
+            // 4b. Dozvoli unos samo postojećih komandi, start, res, i help
+            while (!GameUtils.validirajKomandu(komanda)) {
+                komanda = unos.next();
+            }
+            // 5. Obradi unetu komandu koja je validna
+            switch (komanda) {
+                case "start":
+                    // 6. Kreiraj igraca
+                    Player igrac = Player.kreirajIgraca(igraci);
+                    // 7. Pokreni igru
+                    pokreniIgru(igrac, pitanja);
+                    // 8. Nakon završene igre sačuvaj informacije o igraču
+                    try {
+                        GameUtils.sacuvajInformacijeOIgracu(igraci, igrac);
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                    break;
+                case "res":
+                    // 6a. Prikaži tabelu rezultata
+                    TabelaRezultata tabelaRezultata = new TabelaRezultata(igraci);
+                    tabelaRezultata.prikaziTabelu();
+                    break;
+                case "help":
+                case "exit":
+                    break;
+            }
+            GameUtils.prikaziKomande();
             komanda = unos.next();
-        }
-        // 5. Obradi unetu komandu koja je validna
-        switch (komanda) {
-            case "start":
-                // 5a. Kreiraj igraca
-                Player igrac = pripremiIgru();
-                // 5b. Pokreni igru
-                pokreniIgru(igrac, pitanja);
-                // Nakon završene igre sačuvaj informacije o igraču
-                GameUtils.sacuvajInformacijeOIgracu(igraci, igrac);
-                break;
-            case "res":
-                System.out.println("Prikaži rezultate");
-                TabelaRezultata tabelaRezultata = new TabelaRezultata(igraci);
-                tabelaRezultata.prikaziTabelu();
-                break;
-            case "help":
-                prikaziKomande();
-                break;
-            case "exit":
-                break;
-        }
+        } while (!komanda.equals("exit"));
+
         unos.close();
     }
 
-    static Player pripremiIgru() {
-        Scanner unos = new Scanner(System.in);
-        LogUtils.logGreen("Unesite ime: ", false);
-        String ime = unos.next();
-        while (ime.length() < 2 || ime.length() > 10) {
-            System.out.println("Ime igrača mora biti izmedju dva i 10 karaktera");
-            ime = unos.next();
-        }
-        return new Player(ime);
-    }
-
+    /**
+     * Priprema podatke za početak igre, i nakon toga pokreće igru
+     * @param igrac - trenutni igrač
+     * @param pitanja - lista svih pitanja
+     */
     static void pokreniIgru(Player igrac, ArrayList<Pitanje> pitanja) {
         boolean igrajPonovo;
         do {
+            // Pomešamo redosled pitanja svaki put, da igrač ne bi odgovarao na pitanja istim redosledom
             Collections.shuffle(pitanja);
             ArrayList<Pitanje> _pitanja = new ArrayList<>();
+            // U igri koristimo samo prvih deset pitanja iz celokupne liste pitanja
             int counter = 0;
             for (Pitanje pitanje : pitanja) {
                 if (counter < 10) {
@@ -71,47 +74,7 @@ public class Main {
                 }
             }
             Igra igra = new Igra(_pitanja, igrac);
-            igrajPonovo = igra.pokreniIgru();
+            igrajPonovo = igra.start();
         } while (igrajPonovo);
-        System.out.println("Kraj programa!");
-    }
-
-    static void pocetnaInfoPoruka() {
-        LogUtils.logGreen("Dobrodošli u Java kviz!", true);
-        prikaziKomande();
-    }
-
-    static void prikaziKomande() {
-        LogUtils.logGreen("Za pregled rezultata unesite komandu ", false);
-        LogUtils.logGreenB("res", true);
-
-        LogUtils.logGreen("Za početak igre unesite komandu ", false);
-        LogUtils.logGreenB("start", true);
-
-        LogUtils.logGreen("Za izlazak iz programa unesite komandu ", false);
-        LogUtils.logGreenB("exit", true);
-
-        LogUtils.logGreenB("Unesite komandu: ", false);
-    }
-
-    static ArrayList<Pitanje> ucitajPitanja() throws IOException {
-        boolean fajlSaPitanjimaPostoji = new File("pitanja.dat").exists();
-        ArrayList<Pitanje> pitanja;
-        if (fajlSaPitanjimaPostoji) {
-            pitanja = GameUtils.ucitajFajlSaPitanjima();
-        } else {
-            pitanja = GameUtils.kreirajFajlSaPitanjima();
-        }
-        return pitanja;
-    }
-
-    static ArrayList<Player> ucitajIgrace() {
-        ArrayList<Player> igraci = new ArrayList<>();
-        try {
-            igraci = GameUtils.ucitajFajlSaIgracima();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        return igraci;
     }
 }
