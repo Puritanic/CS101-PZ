@@ -3,37 +3,45 @@
 > Simulacija kviza, ima opcije za više igrača, i vodi evidenciju o postignutim rezultatima. 
 > Pitanja i rezultati se nalaze u odvojenim fajlovima.
 
+## Pokretanje projekta
 
-Kviz - Pitanje
+Projekat se može pokrenuti preko komandne linije, ili iz IDE okruženja.
 
-Osoba - Igrac
+Iz komandne linije, projekat se može pokrenuti na sledeći način (_ako se nalazite u root direktorijumu projekta_):
 
-Tabela rezultata
+```sh
+javac ./src/CS101Projekat/*
+cd src
+java CS101Projekat.Main
+```
 
-pokrene se igra, izabere se ime igraca,
-ako vec postoji igrac sa tim imenom, onda se preuzmu njihovi podaci.
+## Uputstvo za korišćenje
 
-pokrene se igra naredbom start
+Nakon pokretanja programa, imate opciju da izaberete jednu od nekoliko ponudjenih komandi:
 
-igrac moze da izadje naredbom exit (bilo kada)
+- `start` - Pokreće kviz program, uz prethodno kreiranje profila igrača
+- `res` - prikazuje rezultate svih igrača koji su igrali igru (_ukoliko ih ima_)
+- `exit` - izlazak iz programa
 
-u toku igre, ucitavaju se pitanja iz fajla, svako pitanje ima nekoliko ponudjenih odgovora
-i informaciju o tome koje je pitanje tacno.
+Takodje postoji i `help` komanda koja ponovo prikazuje listu mogućih komandi nakon unosa.
 
-korisnik unosi redni (celi) broj odgovora.
+Svaki kviz se sastoji od 10 nasumično izabranih pitanja, i na pitanje se odgovara tako što se unese redni broj nekog od ponudjenih odgovora.
 
-Ako je odgovor tacno, dodaju se poeni,
-ako je odgovor pogresan prikazuje se tacan odgovor,
-ide se na sledece pitanje
+## Zahtevi
 
-max deset pitanja po igri.
-
-Pitanja imaju nasumicni raspored svaki put (arrayList.shuffle?)
-
-ako se unese komanda help, prikazuje se lista komandi
-
-komanda results se moze videti samo van igre, i prikazuje listu igraca sa njihovim poenima, npr:
-- 99 Darko
-- 77 Jovan
-
-Person/Player i Pitanje klase trebaju da budu Serializable da bi mogle da se cuvaju kao binarna vrednost.
+Projekat **MORA** da sadrži:
+ - [x] Bar jedan primer implementacije koja sadrži nasleđivanje
+ - [ ] Bar jedan interfejs koji se realizuje i bar jednu apstraktnu klasu
+ - [x] Bar pet klasa
+ - [ ] Implementiranu podelu rada klasa po paketima – posebne klase za čuvanje podataka
+(klase tipa Student, Profesor, Predmet... Zavisi od teme), posebne klase za komunikaciju sa korisnikom (klasa preko koje korisnik unosi podatke i klasa koja prikazuje/štampa korisniku podatke), obradu podataka (sadrži razne metode koje rade nad podacima, na primer traži najboljeg studenta po proseku), upis i čitanje iz fajlova.
+ - [x] Rad sa listama (čuvanje podataka u vidu listi objekata i metode koje rade sa listama)
+ - [x] Rad sa klasom String
+ - [x] Korišćenje više uslova (if ili switch) i više petlji
+ - [ ] Bar jedan Enum (nabrojivi tip)
+ - [ ] Rad sa izuzecima (kreiranje novog izuzetka i njegova obrada)
+ - [x] Rad sa datotekama (čitanje i pisanje)
+ - [x] Podatke koje koristi aplikacija unosi korisnik ili se čitaju iz datoteka, izbegavati fiksirane vrednosti u kodu
+ - [x] Enkapsulaciju - svaka klasa mora imati konstruktore, getere, setere i override toString metode.
+ - [ ] Dokument koji opisuje funkcionalnosti aplikacije kao i uputstvo korišćenja (šablon u prilogu mejla)
+ - [ ] Klasni dijagram u PowerDesigner-u koji prikazuje sve klase i relacije između klasa koji se poklapa sa kodom (bar delimično)

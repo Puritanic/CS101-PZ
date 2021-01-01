@@ -6,7 +6,6 @@ import java.util.ArrayList;
 public class GameUtils {
     /**
      * Generiše listu pitanja i odgovora i nakon toga vraća ArrayList sa tim vrednostima
-     *
      * @return lista pitanja sa odgovorima
      */
     private static ArrayList<Pitanje> generisiPitanjaIOdgovore() {
@@ -129,7 +128,6 @@ public class GameUtils {
 
     /**
      * Kreira fajl sa pitanjima i odgovorima
-     *
      * @return lista pitanja sa odgovorima
      */
     public static ArrayList<Pitanje> kreirajFajlSaPitanjima() throws IOException {
@@ -148,7 +146,6 @@ public class GameUtils {
 
     /**
      * Učitava pitanja sa odgovorima iz već postojećeg fajla
-     *
      * @return lista pitanja sa odgovorima
      * @throws IOException
      */
