@@ -1,4 +1,7 @@
-package CS101Projekat;
+package main;
+
+import main.models.Player;
+import main.utils.LogUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -6,10 +9,10 @@ import java.util.Arrays;
 public class TabelaRezultata {
     private Player[] igraci;
 
-    TabelaRezultata() {
+    public TabelaRezultata() {
     }
 
-    TabelaRezultata(ArrayList<Player> igraci) {
+    public TabelaRezultata(ArrayList<Player> igraci) {
         this.igraci = sortirajIgracePremaPoenima(igraci);
     }
 
@@ -29,9 +32,19 @@ public class TabelaRezultata {
      */
     public void prikaziTabelu() {
         System.out.format("\033[1;93m%-10s%-11s%-11s%-12s\033[0m\n", "Pozicija", "Ime", "Broj Poena", "Broj igara");
-        for (int i = 0; i < igraci.length; i++) {
-            System.out.format("%-10s%-11s%-11s%-12s\n", i + ".", igraci[i].getIme(), igraci[i].getBrojPoena(),igraci[i].getBrojZavrsenihIgara() );
+
+        if (igraci.length == 0){
+            System.out.println();
+            LogUtils.logGreenB(" Trenutno nema sačuvanih rezultata", true);
+            System.out.println();
+        } else {
+            System.out.println();
+            for (int i = 0; i < igraci.length; i++) {
+                System.out.format("%-10s%-11s%-11s%-12s\n", i + ".", igraci[i].getIme(), igraci[i].getBrojPoena(),igraci[i].getBrojZavrsenihIgara() );
+            }
+            System.out.println();
         }
+
     }
 
     public Player[] getIgraci() {

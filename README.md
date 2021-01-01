@@ -10,9 +10,9 @@ Projekat se može pokrenuti preko komandne linije, ili iz IDE okruženja.
 Iz komandne linije, projekat se može pokrenuti na sledeći način (_ako se nalazite u root direktorijumu projekta_):
 
 ```sh
-javac ./src/CS101Projekat/*
+javac ./src/main/*
 cd src
-java CS101Projekat.Main
+java main.Main
 ```
 
 ## Uputstvo za korišćenje
@@ -38,7 +38,7 @@ Projekat **MORA** da sadrži:
  - [x] Rad sa listama (čuvanje podataka u vidu listi objekata i metode koje rade sa listama)
  - [x] Rad sa klasom String
  - [x] Korišćenje više uslova (if ili switch) i više petlji
- - [ ] Bar jedan Enum (nabrojivi tip)
+ - [x] Bar jedan Enum (nabrojivi tip)
  - [ ] Rad sa izuzecima (kreiranje novog izuzetka i njegova obrada)
  - [x] Rad sa datotekama (čitanje i pisanje)
  - [x] Podatke koje koristi aplikacija unosi korisnik ili se čitaju iz datoteka, izbegavati fiksirane vrednosti u kodu

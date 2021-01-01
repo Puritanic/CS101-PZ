@@ -1,4 +1,4 @@
-package CS101Projekat;
+package main.models;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -8,10 +8,10 @@ public class Pitanje implements Serializable {
     private Odgovor[] odgovori;
     private int indeksTacnogOdgovora;
 
-    Pitanje() {
+    public Pitanje() {
     }
 
-    Pitanje(String pitanje, Odgovor[] odgovori, int indeksTacnogOdgovora) {
+    public Pitanje(String pitanje, Odgovor[] odgovori, int indeksTacnogOdgovora) {
         this.pitanje = pitanje;
         this.odgovori = odgovori;
         this.indeksTacnogOdgovora = indeksTacnogOdgovora;

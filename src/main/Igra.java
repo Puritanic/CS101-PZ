@@ -1,5 +1,9 @@
-package CS101Projekat;
+package main;
 
+import main.models.Odgovor;
+import main.models.Pitanje;
+import main.models.Player;
+import main.utils.LogUtils;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -15,7 +19,6 @@ public class Igra {
     Igra(ArrayList<Pitanje> pitanja, Player igrac) {
         this.pitanja = pitanja;
         this.igrac = igrac;
-        LogUtils.clearConsole();
     }
 
     /**

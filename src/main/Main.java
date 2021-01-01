@@ -1,4 +1,8 @@
-package CS101Projekat;
+package main;
+
+import main.models.Pitanje;
+import main.models.Player;
+import main.utils.GameUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;

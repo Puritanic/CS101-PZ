@@ -1,4 +1,7 @@
-package CS101Projekat;
+package main.models;
+
+import main.abstracts.Osoba;
+import main.utils.LogUtils;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -14,7 +17,7 @@ public class Player extends Osoba implements Serializable, Comparable<Player> {
      * Kreira Player klasu za novog igrača, u ovom slučaju nemamo ime
      * broj poena je podrazumevano 0, i generišemo novi id.
      */
-    Player() {
+    public Player() {
         brojPoena = 0;
         id = generisiID();
     }
@@ -24,7 +27,7 @@ public class Player extends Osoba implements Serializable, Comparable<Player> {
      * broj poena je podrazumevano 0, i generišemo novi id.
      * @param ime ime igrača
      */
-    Player(String ime) {
+    public Player(String ime) {
         super(ime);
         brojPoena = 0;
         id = generisiID();

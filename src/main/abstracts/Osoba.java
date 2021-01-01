@@ -1,15 +1,15 @@
-package CS101Projekat;
+package main.abstracts;
 
 import java.io.Serializable;
 
 public abstract class Osoba implements Serializable {
     private String ime;
 
-    Osoba() {
+    public Osoba() {
         this.ime = "Nepoznati igrač";
     }
 
-    Osoba(String ime) {
+    public Osoba(String ime) {
         this.ime = ime;
     }
 

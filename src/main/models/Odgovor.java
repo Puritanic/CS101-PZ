@@ -1,4 +1,4 @@
-package CS101Projekat;
+package main.models;
 
 import java.io.Serializable;
 
@@ -6,7 +6,9 @@ public class Odgovor implements Serializable {
     private String odgovor;
     private boolean jeTacan;
 
-    Odgovor(String odgovor, boolean jeTacan) {
+    public Odgovor(){}
+
+    public Odgovor(String odgovor, boolean jeTacan) {
         this.odgovor = odgovor;
         this.jeTacan = jeTacan;
     }

@@ -1,9 +1,13 @@
-package CS101Projekat;
+package main.utils;
+
+import main.models.Odgovor;
+import main.models.Pitanje;
+import main.models.Player;
 
 import java.io.*;
 import java.util.ArrayList;
 
-public class GameUtils {
+public final class GameUtils {
     /**
      * Generiše listu pitanja i odgovora i nakon toga vraća ArrayList sa tim vrednostima
      * @return lista pitanja sa odgovorima
@@ -248,12 +252,12 @@ public class GameUtils {
         }
     }
 
-    static void pocetnaInfoPoruka() {
+    public static void pocetnaInfoPoruka() {
         LogUtils.logGreen("Dobrodošli u Java kviz!", true);
         prikaziKomande();
     }
 
-    static void prikaziKomande() {
+    public static void prikaziKomande() {
         LogUtils.logGreen("Za pregled rezultata unesite komandu ", false);
         LogUtils.logGreenB("res", true);
 
@@ -273,7 +277,7 @@ public class GameUtils {
      *
      * @return listu pitanja
      */
-    static ArrayList<Pitanje> ucitajPitanja() {
+    public static ArrayList<Pitanje> ucitajPitanja() {
         boolean fajlSaPitanjimaPostoji = new File("pitanja.dat").exists();
         ArrayList<Pitanje> pitanja = new ArrayList<>();
         try {
