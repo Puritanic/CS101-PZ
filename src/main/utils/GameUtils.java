@@ -4,12 +4,13 @@ import main.models.Odgovor;
 import main.models.Pitanje;
 import main.models.Player;
 
-import java.io.*;
+import java.io.File;
 import java.util.ArrayList;
 
 public final class GameUtils {
     /**
      * Generiše listu pitanja i odgovora i nakon toga vraća ArrayList sa tim vrednostima
+     *
      * @return lista pitanja sa odgovorima
      */
     private static ArrayList<Pitanje> generisiPitanjaIOdgovore() {
@@ -130,113 +131,6 @@ public final class GameUtils {
         return listaPitanja;
     }
 
-    /**
-     * Kreira fajl sa pitanjima i odgovorima
-     * @return lista pitanja sa odgovorima
-     */
-    public static ArrayList<Pitanje> kreirajFajlSaPitanjima() throws IOException {
-        ArrayList<Pitanje> listaPitanja = generisiPitanjaIOdgovore();
-        ObjectOutputStream output = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream("pitanja.dat")));
-        try {
-            for (Pitanje pitanje : listaPitanja) {
-                output.writeObject(pitanje);
-            }
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        output.close();
-        return listaPitanja;
-    }
-
-    /**
-     * Učitava pitanja sa odgovorima iz već postojećeg fajla
-     * @return lista pitanja sa odgovorima
-     * @throws IOException
-     */
-    public static ArrayList<Pitanje> ucitajFajlSaPitanjima() throws IOException {
-        ArrayList<Pitanje> listaPitanja = new ArrayList<>();
-        ObjectInputStream input = new ObjectInputStream(new BufferedInputStream(new FileInputStream("pitanja.dat")));
-        try {
-            while (true) {
-                Pitanje pitanje = (Pitanje) input.readObject();
-                listaPitanja.add(pitanje);
-            }
-        } catch (EOFException ex) {
-            System.out.println("Sva pitanja su učitana");
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            System.out.println("Greška pri učitavanju klasa iz objekta.");
-            e.printStackTrace();
-        }
-        input.close();
-        return listaPitanja;
-    }
-
-    /**
-     * Pokušava učitavanje podataka o igračima sa eskternog fajla:
-     *  - u slučaju da eksterni fajl postoji, učitavamo objekte iz njega i kastujemo ih u klasu Player
-     *  - u slučaju da eksterni fajl ne postoji, vraćamo praznu listu
-     * @return sačuvani podaci o igračima koji su pokretali igru, ili prazna lista
-     */
-    public static ArrayList<Player> ucitajIgrace() {
-        ArrayList<Player> igraci = new ArrayList<>();
-        boolean fajlSaIgracimaPostoji = new File("players.dat").exists();
-        if (!fajlSaIgracimaPostoji) {
-            System.out.println("Fajl sa igracima ne postoji!");
-            return igraci;
-        }
-
-        try {
-            ObjectInputStream input = new ObjectInputStream(new BufferedInputStream(new FileInputStream("players.dat")));
-            try {
-                while (true) {
-                    Player igrac = (Player) input.readObject();
-                    igraci.add(igrac);
-//                    System.out.println(igrac.toString());
-                }
-            } catch (EOFException ex) {
-                System.out.println("Podaci o igračima su učitani");
-            } catch (IOException ex) {
-                System.out.println("IO greška");
-                ex.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                System.out.println("Greška pri učitavanju klasa iz objekta.");
-            } finally {
-                input.close();
-            }
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-
-        return igraci;
-    }
-
-    /**
-     * ubacuje podatke o trenutnom igraču u players.dat fajl
-     * U slučaju da fajl ne postoji, kreiramo fajl i onda ubacujemo info
-     * u suprotnom samo dodajemo još jedan unos (ako igrač sa ovim imenom već ne postoji?)
-     *
-     * @param igraci - Lista igrača
-     * @param igrac  - trenutni igrač
-     */
-    public static void sacuvajInformacijeOIgracu(ArrayList<Player> igraci, Player igrac) throws IOException {
-        ObjectOutputStream output = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream("players.dat")));
-        if (!igraci.contains(igrac)){
-            igraci.add(igrac);
-        }
-
-        try {
-            for (Player _igrac : igraci) {
-                output.writeObject(_igrac);
-            }
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        } finally {
-            output.close();
-        }
-    }
-
     public static boolean validirajKomandu(String komanda) {
         switch (komanda) {
             case "start":
@@ -273,22 +167,49 @@ public final class GameUtils {
     /**
      * Proverava da li postoji fajl sa pitanjima:
      * - ako ne postoji, generišemo novi fajl na osnovu liste pitanja koje imamo u programu
-     * - ako postoji, učitavamo taj fajl, i generišemo listu pitanja na osnovu njegovog sadržaja
+     * - ako postoji, učitavamo taj fajl, i listu pitanja na osnovu njegovog sadržaja
      *
-     * @return listu pitanja
+     * @return lista pitanja
      */
     public static ArrayList<Pitanje> ucitajPitanja() {
         boolean fajlSaPitanjimaPostoji = new File("pitanja.dat").exists();
-        ArrayList<Pitanje> pitanja = new ArrayList<>();
-        try {
-            if (fajlSaPitanjimaPostoji) {
-                pitanja = ucitajFajlSaPitanjima();
-            } else {
-                pitanja = kreirajFajlSaPitanjima();
-            }
-        } catch (IOException ex) {
-            ex.printStackTrace();
+        SerializationUtil<Pitanje> su = new SerializationUtil<>();
+        ArrayList<Pitanje> pitanja;
+
+        if (fajlSaPitanjimaPostoji) {
+            pitanja = su.deserializeList("pitanja.dat");
+        } else {
+            pitanja = generisiPitanjaIOdgovore();
+            su.serializeList(pitanja, "pitanja.dat");
         }
         return pitanja;
+    }
+
+    /**
+     * Pokušava učitavanje podataka o igračima sa eskternog fajla:
+     * - u slučaju da eksterni fajl postoji, učitavamo objekte iz njega i kastujemo ih u klasu Player
+     * - u slučaju da eksterni fajl ne postoji, vraćamo praznu listu
+     *
+     * @return sačuvani podaci o igračima koji su pokretali igru, ili prazna lista
+     */
+    public static ArrayList<Player> ucitajIgrace() {
+        SerializationUtil<Player> su = new SerializationUtil<>();
+        return su.deserializeList("players.dat");
+    }
+
+    /**
+     * ubacuje podatke o trenutnom igraču u players.dat fajl
+     * U slučaju da fajl ne postoji, kreiramo fajl i onda ubacujemo info
+     * u suprotnom samo dodajemo još jedan unos (ako igrač sa ovim imenom već ne postoji?)
+     *
+     * @param igraci - Lista igrača
+     * @param igrac  - trenutni igrač
+     */
+    public static void sacuvajInformacijeOIgracu(ArrayList<Player> igraci, Player igrac) {
+        SerializationUtil<Player> su = new SerializationUtil<>();
+        if (!igraci.contains(igrac)) {
+            igraci.add(igrac);
+        }
+        su.serializeList(igraci, "players.dat");
     }
 }

@@ -31,7 +31,7 @@ Svaki kviz se sastoji od 10 nasumično izabranih pitanja, i na pitanje se odgova
 
 Projekat **MORA** da sadrži:
  - [x] Bar jedan primer implementacije koja sadrži nasleđivanje
- - [ ] Bar jedan interfejs koji se realizuje i bar jednu apstraktnu klasu
+ - [x] Bar jedan interfejs koji se realizuje i bar jednu apstraktnu klasu
  - [x] Bar pet klasa
  - [ ] Implementiranu podelu rada klasa po paketima – posebne klase za čuvanje podataka
 (klase tipa Student, Profesor, Predmet... Zavisi od teme), posebne klase za komunikaciju sa korisnikom (klasa preko koje korisnik unosi podatke i klasa koja prikazuje/štampa korisniku podatke), obradu podataka (sadrži razne metode koje rade nad podacima, na primer traži najboljeg studenta po proseku), upis i čitanje iz fajlova.

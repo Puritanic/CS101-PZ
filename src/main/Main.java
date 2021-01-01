@@ -4,7 +4,6 @@ import main.models.Pitanje;
 import main.models.Player;
 import main.utils.GameUtils;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
@@ -34,11 +33,7 @@ public class Main {
                     // 7. Pokreni igru
                     pokreniIgru(igrac, pitanja);
                     // 8. Nakon završene igre sačuvaj informacije o igraču
-                    try {
-                        GameUtils.sacuvajInformacijeOIgracu(igraci, igrac);
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
-                    }
+                    GameUtils.sacuvajInformacijeOIgracu(igraci, igrac);
                     break;
                 case "res":
                     // 6a. Prikaži tabelu rezultata
@@ -58,7 +53,8 @@ public class Main {
 
     /**
      * Priprema podatke za početak igre, i nakon toga pokreće igru
-     * @param igrac - trenutni igrač
+     *
+     * @param igrac   - trenutni igrač
      * @param pitanja - lista svih pitanja
      */
     static void pokreniIgru(Player igrac, ArrayList<Pitanje> pitanja) {
