@@ -36,15 +36,12 @@ public class TabelaRezultata {
         if (igraci.length == 0){
             System.out.println();
             LogUtils.logGreenB(" Trenutno nema sačuvanih rezultata", true);
-            System.out.println();
         } else {
-            System.out.println();
             for (int i = 0; i < igraci.length; i++) {
                 System.out.format("%-10s%-11s%-11s%-12s\n", i + ".", igraci[i].getIme(), igraci[i].getBrojPoena(),igraci[i].getBrojZavrsenihIgara() );
             }
-            System.out.println();
         }
-
+        System.out.println();
     }
 
     public Player[] getIgraci() {

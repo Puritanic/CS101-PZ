@@ -1,6 +1,7 @@
 package main.models;
 
 import main.abstracts.Osoba;
+import main.interfaces.Identifikabilan;
 import main.utils.LogUtils;
 
 import java.io.Serializable;
@@ -8,8 +9,8 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
-public class Player extends Osoba implements Serializable, Comparable<Player> {
-    private final int id;
+public class Player extends Osoba implements Serializable, Comparable<Player>, Identifikabilan {
+    private int id;
     private int brojPoena;
     private int brojZavrsenihIgara;
 
@@ -64,6 +65,16 @@ public class Player extends Osoba implements Serializable, Comparable<Player> {
 
     public void setBrojZavrsenihIgara(int brojZavrsenihIgara) {
         this.brojZavrsenihIgara = brojZavrsenihIgara;
+    }
+
+    @Override
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Override
+    public int getId() {
+        return this.id;
     }
 
     /**

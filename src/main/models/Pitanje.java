@@ -1,12 +1,15 @@
 package main.models;
 
+import main.interfaces.Identifikabilan;
+
 import java.io.Serializable;
 import java.util.Arrays;
 
-public class Pitanje implements Serializable {
+public class Pitanje implements Serializable, Identifikabilan {
     private String pitanje;
     private Odgovor[] odgovori;
     private int indeksTacnogOdgovora;
+    private int id;
 
     public Pitanje() {
     }
@@ -39,6 +42,16 @@ public class Pitanje implements Serializable {
 
     public void setIndeksTacnogOdgovora(int indeksTacnogOdgovora) {
         this.indeksTacnogOdgovora = indeksTacnogOdgovora;
+    }
+
+    @Override
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Override
+    public int getId() {
+        return this.id;
     }
 
     @Override

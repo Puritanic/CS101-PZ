@@ -1,10 +1,13 @@
 package main.models;
 
+import main.interfaces.Identifikabilan;
+
 import java.io.Serializable;
 
-public class Odgovor implements Serializable {
+public class Odgovor implements Serializable, Identifikabilan {
     private String odgovor;
     private boolean jeTacan;
+    private int id;
 
     public Odgovor(){}
 
@@ -27,6 +30,16 @@ public class Odgovor implements Serializable {
 
     public boolean getjeTacan() {
         return jeTacan;
+    }
+
+    @Override
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Override
+    public int getId() {
+        return this.id;
     }
 
     @Override
