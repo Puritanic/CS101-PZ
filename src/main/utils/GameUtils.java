@@ -13,7 +13,9 @@ public final class GameUtils {
     public static final String EXIT = "exit";
     public static final String HELP = "help";
 
-    private GameUtils() {}
+    private GameUtils() {
+    }
+
     /**
      * Generiše listu pitanja i odgovora i nakon toga vraća ArrayList sa tim vrednostima
      *
@@ -22,119 +24,242 @@ public final class GameUtils {
     private static ArrayList<Pitanje> generisiPitanjaIOdgovore() {
         ArrayList<Pitanje> listaPitanja = new ArrayList<>();
 
-        Pitanje pitanje1 = new Pitanje();
-        pitanje1.setPitanje("If you want your condition to depend upon two conditions BOTH being true, What is the proper notation to put between the two Boolean statements?");
-        Odgovor[] odgovori = {new Odgovor("!", false), new Odgovor("||", false), new Odgovor("&&", true)};
-        pitanje1.setOdgovori(odgovori);
-        pitanje1.setIndeksTacnogOdgovora(2);
-        listaPitanja.add(pitanje1);
+        kreirajPitanje(
+                listaPitanja,
+                "If you want your condition to depend upon two conditions BOTH being true, What is the proper notation to put between the two Boolean statements?",
+                new Odgovor[]{new Odgovor("!", false), new Odgovor("||", false), new Odgovor("&&", true)},
+                2
+        );
 
-        Pitanje pitanje2 = new Pitanje();
-        pitanje2.setPitanje("Java keywords are written in lowercase as well as uppercase?");
-        Odgovor[] odgovori2 = {new Odgovor("true", false), new Odgovor("false", true)};
-        pitanje2.setOdgovori(odgovori2);
-        pitanje2.setIndeksTacnogOdgovora(1);
-        listaPitanja.add(pitanje2);
+        kreirajPitanje(
+                listaPitanja,
+                "Java keywords are written in lowercase as well as uppercase?",
+                new Odgovor[]{new Odgovor("True", false), new Odgovor("False", true)},
+                1
+        );
 
-        Pitanje pitanje3 = new Pitanje();
-        pitanje3.setPitanje("What is the correct syntax for java main method?");
-        Odgovor[] odgovori3 = {new Odgovor("public static void main(string[] args)", false), new Odgovor("public static void main()", false), new Odgovor("public void main(String[] args)", false), new Odgovor("none of the above", true)};
-        pitanje3.setOdgovori(odgovori3);
-        pitanje3.setIndeksTacnogOdgovora(3);
-        listaPitanja.add(pitanje3);
+        kreirajPitanje(
+                listaPitanja,
+                "What is the correct syntax for java main method?",
+                new Odgovor[]{new Odgovor("public static void main(string[] args)", false), new Odgovor("public static void main()", false), new Odgovor("public void main(String[] args)", false), new Odgovor("none of the above", true)},
+                3
+        );
 
-        Pitanje pitanje4 = new Pitanje();
-        pitanje4.setPitanje("Choose the appropriate data type for this field: isSwimmer");
-        Odgovor[] odgovori4 = {new Odgovor("double", false), new Odgovor("boolean", true), new Odgovor("string", false), new Odgovor("int", false)};
-        pitanje4.setOdgovori(odgovori4);
-        pitanje4.setIndeksTacnogOdgovora(1);
-        listaPitanja.add(pitanje4);
+        kreirajPitanje(
+                listaPitanja,
+                "Choose the appropriate data type for this field: isSwimmer",
+                new Odgovor[]{new Odgovor("double", false), new Odgovor("boolean", true), new Odgovor("string", false), new Odgovor("int", false)},
+                1
+        );
 
-        Pitanje pitanje5 = new Pitanje();
-        pitanje5.setPitanje("Choose the appropriate data type for this value: 5.5");
-        Odgovor[] odgovori5 = {new Odgovor("int", false), new Odgovor("double", true), new Odgovor("string", false), new Odgovor("boolean", false)};
-        pitanje5.setOdgovori(odgovori5);
-        pitanje5.setIndeksTacnogOdgovora(1);
-        listaPitanja.add(pitanje5);
+        kreirajPitanje(
+                listaPitanja,
+                "Choose the appropriate data type for this value: 5.5",
+                new Odgovor[]{new Odgovor("int", false), new Odgovor("double", true), new Odgovor("string", false), new Odgovor("boolean", false)},
+                1
+        );
 
-        Pitanje pitanje6 = new Pitanje();
-        pitanje6.setPitanje("Object-Oriented Programming means ...");
-        Odgovor[] odgovori6 = {new Odgovor("Being objective about what you develop", false), new Odgovor(" Designing the application based on the objects discovered when analysing the problem", true), new Odgovor(" Writing an algorithm before writing your program and having a test plan", false), new Odgovor(" Writing a program composed of Java classes", false)};
-        pitanje6.setOdgovori(odgovori6);
-        pitanje6.setIndeksTacnogOdgovora(1);
-        listaPitanja.add(pitanje6);
+        kreirajPitanje(
+                listaPitanja,
+                "Object-Oriented Programming means ...",
+                new Odgovor[]{new Odgovor("Being objective about what you develop", false), new Odgovor("Designing the application based on the objects discovered when analysing the problem", true), new Odgovor("Writing an algorithm before writing your program and having a test plan", false), new Odgovor("Writing a program composed of Java classes", false)},
+                1
+        );
 
-        Pitanje pitanje7 = new Pitanje();
-        pitanje7.setPitanje("A UML Association is");
-        Odgovor[] odgovori7 = {new Odgovor("implemented as a Java attribute member", true), new Odgovor(" implemented as a Java method", false), new Odgovor(" implemented as a Java Class", false)};
-        pitanje7.setOdgovori(odgovori7);
-        pitanje7.setIndeksTacnogOdgovora(0);
-        listaPitanja.add(pitanje7);
+        kreirajPitanje(
+                listaPitanja,
+                "A UML Association is",
+                new Odgovor[]{new Odgovor("implemented as a Java attribute member", true), new Odgovor("implemented as a Java method", false), new Odgovor(" implemented as a Java Class", false)},
+                0
+        );
 
-        Pitanje pitanje8 = new Pitanje();
-        pitanje8.setPitanje("Which of the following is not a Java keyword?");
-        Odgovor[] odgovori8 = {new Odgovor("static", false), new Odgovor("try", false), new Odgovor("Integer", true), new Odgovor("new", false)};
-        pitanje8.setOdgovori(odgovori8);
-        pitanje8.setIndeksTacnogOdgovora(2);
-        listaPitanja.add(pitanje8);
+        kreirajPitanje(
+                listaPitanja,
+                "Which of the following is not a Java keyword?",
+                new Odgovor[]{new Odgovor("static", false), new Odgovor("try", false), new Odgovor("Integer", true), new Odgovor("new", false)},
+                2
+        );
 
-        Pitanje pitanje9 = new Pitanje();
-        pitanje9.setPitanje("What is an assignment statement ?");
-        Odgovor[] odgovori9 = {new Odgovor(" Adding a number to an int", false), new Odgovor(" Assigning a multiplication", false), new Odgovor(" Assigning a value to a variable", true), new Odgovor(" Assigning a name to a variable", false)};
-        pitanje9.setOdgovori(odgovori9);
-        pitanje9.setIndeksTacnogOdgovora(2);
-        listaPitanja.add(pitanje9);
+        kreirajPitanje(
+                listaPitanja,
+                "What is an assignment statement?",
+                new Odgovor[]{new Odgovor(" Adding a number to an int", false), new Odgovor("Assigning a multiplication", false), new Odgovor("Assigning a value to a variable", true), new Odgovor("Assigning a name to a variable", false)},
+                2
+        );
 
-        Pitanje pitanje10 = new Pitanje();
-        pitanje10.setPitanje("Which is NOT a section of all types of loops ?");
-        Odgovor[] odgovori10 = {new Odgovor("  Initialization", false), new Odgovor(" Test statement", false), new Odgovor(" The keyword while", true), new Odgovor("Loop body", false)};
-        pitanje10.setOdgovori(odgovori10);
-        pitanje10.setIndeksTacnogOdgovora(2);
-        listaPitanja.add(pitanje10);
+        kreirajPitanje(
+                listaPitanja,
+                "Which is NOT a section of all types of loops?",
+                new Odgovor[]{new Odgovor("Initialization", false), new Odgovor("Test statement", false), new Odgovor("The keyword while", true), new Odgovor("Loop body", false)},
+                2
+        );
 
-        Pitanje pitanje11 = new Pitanje();
-        pitanje11.setPitanje("Java runs on _______.");
-        Odgovor[] odgovori11 = {new Odgovor("  Windows", false), new Odgovor(" Unix/Linux", false), new Odgovor(" Mac OS", false), new Odgovor("All of the above", true)};
-        pitanje11.setOdgovori(odgovori11);
-        pitanje11.setIndeksTacnogOdgovora(3);
-        listaPitanja.add(pitanje11);
+        kreirajPitanje(
+                listaPitanja,
+                "Java runs on _______.",
+                new Odgovor[]{new Odgovor("  Windows", false), new Odgovor(" Unix/Linux", false), new Odgovor(" Mac OS", false), new Odgovor("All of the above", true)},
+                3
+        );
 
-        Pitanje pitanje12 = new Pitanje();
-        pitanje12.setPitanje("What is the size of a Char in Java?");
-        Odgovor[] odgovori12 = {new Odgovor("4 bits", false), new Odgovor("7 bits", false), new Odgovor("8 bits", false), new Odgovor("16 bits", true)};
-        pitanje12.setOdgovori(odgovori12);
-        pitanje12.setIndeksTacnogOdgovora(3);
-        listaPitanja.add(pitanje12);
+        kreirajPitanje(
+                listaPitanja,
+                "What is the size of a Char in Java?",
+                new Odgovor[]{new Odgovor("4 bits", false), new Odgovor("7 bits", false), new Odgovor("8 bits", false), new Odgovor("16 bits", true)},
+                3
+        );
 
-        Pitanje pitanje13 = new Pitanje();
-        pitanje13.setPitanje("Following code 'int a1 = 5; double a2 = (float)a1;' will result in:");
-        Odgovor[] odgovori13 = {new Odgovor("Compilation Error", false), new Odgovor("Runtime Error", false), new Odgovor("No Error", true), new Odgovor("Runtime Exception", false)};
-        pitanje13.setOdgovori(odgovori13);
-        pitanje13.setIndeksTacnogOdgovora(2);
-        listaPitanja.add(pitanje13);
+        kreirajPitanje(
+                listaPitanja,
+                "Following code:\n  int a1 = 5; double a2 = (float)a1;\nwill result in:",
+                new Odgovor[]{new Odgovor("Compilation Error", false), new Odgovor("Runtime Error", false), new Odgovor("No Error", true), new Odgovor("Runtime Exception", false)},
+                2
+        );
 
-        Pitanje pitanje14 = new Pitanje();
-        pitanje14.setPitanje("What is essential in making sure that your loop is not infinite ?");
-        Odgovor[] odgovori14 = {new Odgovor("That your Boolean statement will at some point be false", false), new Odgovor(" That there is a Boolean statement somewhere in your code", false), new Odgovor(" That your Boolean statement will at some point be true", false), new Odgovor(" All of the choices", true)};
-        pitanje14.setOdgovori(odgovori14);
-        pitanje14.setIndeksTacnogOdgovora(3);
-        listaPitanja.add(pitanje14);
+        kreirajPitanje(
+                listaPitanja,
+                "What is essential in making sure that your loop is not infinite?",
+                new Odgovor[]{new Odgovor("That your Boolean statement will at some point be false", false), new Odgovor(" That there is a Boolean statement somewhere in your code", false), new Odgovor(" That your Boolean statement will at some point be true", false), new Odgovor(" All of the choices", true)},
+                3
+        );
 
-        Pitanje pitanje15 = new Pitanje();
-        pitanje15.setPitanje("What is the default value of the local variables?");
-        Odgovor[] odgovori15 = {new Odgovor("null", false), new Odgovor("0", false), new Odgovor("depends on data type", false), new Odgovor("no default value for local variables", true)};
-        pitanje15.setOdgovori(odgovori15);
-        pitanje15.setIndeksTacnogOdgovora(3);
-        listaPitanja.add(pitanje15);
+        kreirajPitanje(
+                listaPitanja,
+                "What is the default value of the local variables?",
+                new Odgovor[]{new Odgovor("null", false), new Odgovor("0", false), new Odgovor("depends on data type", false), new Odgovor("no default value for local variables", true)},
+                3
+        );
 
-        Pitanje pitanje16 = new Pitanje();
-        pitanje16.setPitanje("Can you compare a boolean to an integer");
-        Odgovor[] odgovori16 = {new Odgovor("Yes", false), new Odgovor("No", true)};
-        pitanje16.setOdgovori(odgovori16);
-        pitanje16.setIndeksTacnogOdgovora(1);
-        listaPitanja.add(pitanje16);
+        kreirajPitanje(
+                listaPitanja,
+                "Can you compare a boolean to an integer",
+                new Odgovor[]{new Odgovor("Yes", false), new Odgovor("No", true)},
+                1
+        );
+
+        kreirajPitanje(
+                listaPitanja,
+                "Is there is naming convention that variable name must be start with capital letter?",
+                new Odgovor[]{new Odgovor("Yes", false), new Odgovor("No", true)},
+                1
+        );
+
+        kreirajPitanje(
+                listaPitanja,
+                "Can you save the java source file without any name?",
+                new Odgovor[]{new Odgovor("Yes", true), new Odgovor("No", false)},
+                0
+        );
+
+        kreirajPitanje(
+                listaPitanja,
+                "&& have higer precedence than &?",
+                new Odgovor[]{new Odgovor("True", false), new Odgovor("False", true)},
+                1
+        );
+
+        kreirajPitanje(
+                listaPitanja,
+                "What method is used to notify the operating system that a file is no longer needed?",
+                new Odgovor[]{new Odgovor("quit()", false), new Odgovor("exit()", false), new Odgovor("flush()", false), new Odgovor("close()", true)},
+                3
+        );
+
+        kreirajPitanje(
+                listaPitanja,
+                "What value is assigned to a reference value to show that there is no object?",
+                new Odgovor[]{new Odgovor("0", false), new Odgovor("void", false), new Odgovor("null", true), new Odgovor("\"\"", false)},
+                2
+        );
+
+        kreirajPitanje(
+                listaPitanja,
+                "What is said of an operator like \"+\" when it has several meanings depending on context?",
+                new Odgovor[]{new Odgovor("overloaded", true), new Odgovor("overlorded", false), new Odgovor("overworked", false), new Odgovor("overlooked", false)},
+                0
+        );
+
+        kreirajPitanje(
+                listaPitanja,
+                "String myString;\nWhat is the data type of myString?",
+                new Odgovor[]{new Odgovor("String", true), new Odgovor("reference to String", false), new Odgovor("null", false), new Odgovor("object", false)},
+                0
+        );
+
+        kreirajPitanje(
+                listaPitanja,
+                "Which programming language is considered the first object-oriented programming language?",
+                new Odgovor[]{new Odgovor("Smalltalk", false), new Odgovor("Simula", true)},
+                1
+        );
+
+        kreirajPitanje(
+                listaPitanja,
+                "Abstraction hides complexity?",
+                new Odgovor[]{new Odgovor("False", false), new Odgovor("True", true)},
+                1
+        );
+
+        kreirajPitanje(
+                listaPitanja,
+                "What is the difference between aggregation and composition?",
+                new Odgovor[]{new Odgovor("Aggregation represents strong relationship whereas composition represents weak relationship.", false), new Odgovor("Aggregation represents weak relationship whereas composition represents strong relationship.", true)},
+                1
+        );
+
+        kreirajPitanje(
+                listaPitanja,
+                "The java compiler creates the default constructor of the class always?",
+                new Odgovor[]{new Odgovor("False", true), new Odgovor("True", false)},
+                0
+        );
+
+        kreirajPitanje(
+                listaPitanja,
+                "Inheritance provides ________________.",
+                new Odgovor[]{new Odgovor("code reusability and represents IS-A relationship", true), new Odgovor("code reusability and represents HAS-A relationship", false)},
+                0
+        );
+
+        kreirajPitanje(
+                listaPitanja,
+                "Can class can be transient?",
+                new Odgovor[]{new Odgovor("Yes", false), new Odgovor("No", true)},
+                1
+        );
+
+        kreirajPitanje(
+                listaPitanja,
+                "Class cannot be declared as _____",
+                new Odgovor[]{new Odgovor("default", false), new Odgovor("private", true), new Odgovor("static", false)},
+                1
+        );
+
+        kreirajPitanje(
+                listaPitanja,
+                "An abstract class can have non-abstract methods?",
+                new Odgovor[]{new Odgovor("Yes", true), new Odgovor("No", false)},
+                0
+        );
+
+        kreirajPitanje(
+                listaPitanja,
+                "How can you prevent a member variable from becoming serialized?",
+                new Odgovor[]{new Odgovor("By marking it private", false), new Odgovor("By marking it volatile", false), new Odgovor("By marking it transient", true), new Odgovor("You can't", false)},
+                2
+        );
+
+        kreirajPitanje(
+                listaPitanja,
+                "Methods that are marked protected can be called in any subclass of that class?",
+                new Odgovor[]{new Odgovor("True", true), new Odgovor("False", false)},
+                0
+        );
 
         return listaPitanja;
+    }
+
+    private static void kreirajPitanje(ArrayList<Pitanje> listaPitanja, String pitanje, Odgovor[] odgovori, int idxOdgovora) {
+        listaPitanja.add(new Pitanje(pitanje, odgovori, idxOdgovora));
     }
 
     public static boolean validirajKomandu(String komanda) {
