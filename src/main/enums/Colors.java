@@ -3,7 +3,8 @@ package main.enums;
 public enum Colors {
     /**
      * Omogućava da u konzoli štampamo tekst u raznim bojama
-     * @see "https://stackoverflow.com/a/5762502/7453363"
+     *
+     * @see "https://stackovColorserflow.com/a/5762502/7453363"
      */
     YELLOW("\033[0;33m"),
     YELLOW_BOLD("\033[1;33m"),
@@ -19,6 +20,7 @@ public enum Colors {
     Colors(String color) {
         this.color = color;
     }
+
     public String val() {
         return this.color;
     }

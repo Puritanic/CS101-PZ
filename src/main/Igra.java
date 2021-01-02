@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Igra {
-    ArrayList<Pitanje> pitanja;
-    Player igrac;
+    private ArrayList<Pitanje> pitanja;
+    private Player igrac;
     private int brojTacnihOdgovora;
 
     Igra() {
