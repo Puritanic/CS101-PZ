@@ -20,34 +20,36 @@ public class Main {
         Scanner unos = new Scanner(System.in);
         String komanda = unos.next();
         // 4a. Slušamo korisnički input dok ne dobijemo komandu "exit" nakon koje zatvaramo program
-        do {
+        mainLoop: do {
             // 4b. Dozvoli unos samo postojećih komandi, start, res, i help
             while (!GameUtils.validirajKomandu(komanda)) {
                 komanda = unos.next();
             }
             // 5. Obradi unetu komandu koja je validna
-            switch (komanda) {
-                case "start":
+            switch (komanda.toLowerCase()) {
+                case GameUtils.START:
                     // 6. Kreiraj igraca
                     Player igrac = Player.kreirajIgraca(igraci);
                     // 7. Pokreni igru
                     pokreniIgru(igrac, pitanja);
                     // 8. Nakon završene igre sačuvaj informacije o igraču
                     GameUtils.sacuvajInformacijeOIgracu(igraci, igrac);
+                    GameUtils.prikaziKomande();
                     break;
-                case "res":
+                case GameUtils.RES:
                     // 6a. Prikaži tabelu rezultata
                     TabelaRezultata tabelaRezultata = new TabelaRezultata(igraci);
                     tabelaRezultata.prikaziTabelu();
+                    GameUtils.prikaziKomande();
                     break;
-                case "help":
-                case "exit":
-                    break;
+                case GameUtils.EXIT:
+                    break mainLoop;
+                case GameUtils.HELP:
+                default:
+                    GameUtils.prikaziKomande();
             }
-            GameUtils.prikaziKomande();
             komanda = unos.next();
-        } while (!komanda.equals("exit"));
-
+        } while (!komanda.equalsIgnoreCase(GameUtils.EXIT));
         unos.close();
     }
 

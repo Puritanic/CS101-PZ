@@ -8,7 +8,8 @@ import java.util.ArrayList;
  *
  * @param <T> Player ili Pitanje klasa
  */
-public class SerializationUtil<T> {
+public final class SerializationUtil<T> {
+    public SerializationUtil() {}
     /**
      * @param lista    ArrayList<Pitanje> ili ArrayList<Player>
      * @param imeFajla ime fajla u kome će objekti biti serijalizovani
@@ -52,7 +53,7 @@ public class SerializationUtil<T> {
                     list.add(obj);
                 }
             } catch (EOFException ex) {
-                System.out.println("Fajl " + imeFajla + " je učitan!");
+//                System.out.println("Fajl " + imeFajla + " je učitan!");
             } catch (IOException ex) {
                 ex.printStackTrace();
             } catch (ClassNotFoundException ex) {

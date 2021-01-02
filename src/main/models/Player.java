@@ -26,6 +26,7 @@ public class Player extends Osoba implements Serializable, Comparable<Player>, I
     /**
      * Kreira Player klasu za novog igrača, u ovom slučaju imamo samo ime
      * broj poena je podrazumevano 0, i generišemo novi id.
+     *
      * @param ime ime igrača
      */
     public Player(String ime) {
@@ -37,14 +38,38 @@ public class Player extends Osoba implements Serializable, Comparable<Player>, I
     /**
      * Kreira Player klasu za već postojećeg igrača. U ovom slučaju imamo ime, id i broj poena igrača
      *
-     * @param ime ime igrača
+     * @param ime       ime igrača
      * @param brojPoena broj poena igrača
-     * @param id identifikacioni broj igrača
+     * @param id        identifikacioni broj igrača
      */
     Player(String ime, int brojPoena, int id) {
         super(ime);
         this.brojPoena = brojPoena;
         this.id = id;
+    }
+
+    /**
+     * @return novi igrač
+     */
+    public static Player kreirajIgraca(ArrayList<Player> igraci) {
+        LogUtils.logGreen("Unesite ime: ", false);
+        Scanner unos = new Scanner(System.in);
+        String ime = unos.nextLine();
+        while (ime.length() < 2 || ime.length() > 10) {
+            System.out.println("Ime igrača mora biti izmedju dva i 10 karaktera");
+            ime = unos.next();
+        }
+        // Proveri da li igrač već postoji
+        if (igraci.size() > 0) {
+            for (Player igrac : igraci) {
+                if (igrac.getIme().equals(ime)) {
+                    LogUtils.logGreen("Dobrodošli nazad ", false);
+                    LogUtils.logGreenB(igrac.getIme(), true);
+                    return igrac;
+                }
+            }
+        }
+        return new Player(ime);
     }
 
     private int generisiID() {
@@ -68,36 +93,13 @@ public class Player extends Osoba implements Serializable, Comparable<Player>, I
     }
 
     @Override
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    @Override
     public int getId() {
         return this.id;
     }
 
-    /**
-     * @return novi igrač
-     */
-    public static Player kreirajIgraca(ArrayList<Player> igraci){
-        LogUtils.logGreen("Unesite ime: ", false);
-        Scanner unos = new Scanner(System.in);
-        String ime = unos.next();
-        while (ime.length() < 2 || ime.length() > 10) {
-            System.out.println("Ime igrača mora biti izmedju dva i 10 karaktera");
-            ime = unos.next();
-        }
-        // Proveri da li igrač već postoji
-        if (igraci.size() > 0){
-            for (Player igrac : igraci) {
-                if (igrac.getIme().equals(ime)){
-                    System.out.println("Igrač postoji! " + igrac.toString());
-                    return igrac;
-                }
-            }
-        }
-        return new Player(ime);
+    @Override
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override
@@ -111,9 +113,9 @@ public class Player extends Osoba implements Serializable, Comparable<Player>, I
 
     @Override
     public int compareTo(Player igrac) {
-        if (this.brojPoena > igrac.getBrojPoena()){
+        if (this.brojPoena > igrac.getBrojPoena()) {
             return -1;
-        } else if (this.brojPoena < igrac.getBrojPoena()){
+        } else if (this.brojPoena < igrac.getBrojPoena()) {
             return 1;
         }
         return 0;

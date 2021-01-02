@@ -8,6 +8,12 @@ import java.io.File;
 import java.util.ArrayList;
 
 public final class GameUtils {
+    public static final String START = "start";
+    public static final String RES = "res";
+    public static final String EXIT = "exit";
+    public static final String HELP = "help";
+
+    private GameUtils() {}
     /**
      * Generiše listu pitanja i odgovora i nakon toga vraća ArrayList sa tim vrednostima
      *
@@ -133,14 +139,14 @@ public final class GameUtils {
 
     public static boolean validirajKomandu(String komanda) {
         switch (komanda) {
-            case "start":
-            case "help":
-            case "res":
-            case "exit":
+            case START:
+            case HELP:
+            case RES:
+            case EXIT:
                 return true;
             default:
                 System.out.print("Komanda nije dobra! Za spisak dozvoljenih komandi unesite ");
-                LogUtils.logGreenB("help", true);
+                LogUtils.logGreenB(HELP, true);
                 System.out.print("Pokušajte ponovo: ");
                 return false;
         }
@@ -153,13 +159,13 @@ public final class GameUtils {
 
     public static void prikaziKomande() {
         LogUtils.logGreen("Za pregled rezultata unesite komandu ", false);
-        LogUtils.logGreenB("res", true);
+        LogUtils.logGreenB(RES, true);
 
         LogUtils.logGreen("Za početak igre unesite komandu ", false);
-        LogUtils.logGreenB("start", true);
+        LogUtils.logGreenB(START, true);
 
         LogUtils.logGreen("Za izlazak iz programa unesite komandu ", false);
-        LogUtils.logGreenB("exit", true);
+        LogUtils.logGreenB(EXIT, true);
 
         LogUtils.logGreenB("Unesite komandu: ", false);
     }

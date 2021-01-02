@@ -3,6 +3,9 @@ package main.utils;
 import main.enums.Colors;
 
 public final class LogUtils {
+
+    private LogUtils() {}
+
     public static void logGreen(String poruka, boolean withNewLine) {
         System.out.print(Colors.GREEN.val() + poruka + Colors.RESET.val());
         if (withNewLine) System.out.println();

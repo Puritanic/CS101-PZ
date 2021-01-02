@@ -43,5 +43,5 @@ Projekat **MORA** da sadrži:
  - [x] Rad sa datotekama (čitanje i pisanje)
  - [x] Podatke koje koristi aplikacija unosi korisnik ili se čitaju iz datoteka, izbegavati fiksirane vrednosti u kodu
  - [x] Enkapsulaciju - svaka klasa mora imati konstruktore, getere, setere i override toString metode.
- - [ ] Dokument koji opisuje funkcionalnosti aplikacije kao i uputstvo korišćenja (šablon u prilogu mejla)
+ - [x] Dokument koji opisuje funkcionalnosti aplikacije kao i uputstvo korišćenja (šablon u prilogu mejla)
  - [ ] Klasni dijagram u PowerDesigner-u koji prikazuje sve klase i relacije između klasa koji se poklapa sa kodom (bar delimično)
